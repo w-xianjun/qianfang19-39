@@ -1,0 +1,3500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新安琅琊王氏道桥恒公支<br>谱载查询暨先祖祭祀平台</title>
+    <style>
+        /* 原有样式保持不变 */
+        :root {
+            --base-font-size: 16px;
+            --primary-color: #9B2226;
+            --primary-dark: #7A1A1D;
+            --secondary-color: #B99470;
+            --secondary-dark: #9A7654;
+            --bg-color: #F8F4E9;
+            --text-color: #2C2C2C;
+            --card-bg: #FFFFFF;
+            --border-color: #D9CFC1;
+            --disabled-color: #8C8C8C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            font-size: var(--base-font-size);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h1 {
+            font-size: calc(var(--base-font-size) * 2.6);
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header p {
+            color: var(--text-color);
+            font-size: calc(var(--base-font-size) * 2.0);
+            font-style: italic;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #codeInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: #FCFCFA;
+            transition: border 0.3s;
+        }
+
+        #codeInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        button {
+            padding: 8px 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        button:disabled {
+            background: var(--disabled-color);
+            cursor: not-allowed;
+        }
+
+        .font-size-control {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .history-container {
+            margin-top: 15px;
+        }
+
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-item {
+            padding: 8px 14px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: calc(var(--base-font-size) * 0.9);
+            transition: background 0.3s;
+        }
+
+        .history-item:hover {
+            background: var(--primary-color);
+        }
+
+        #result {
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .person-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .person-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .person-name {
+            font-size: calc(var(--base-font-size) * 1.4);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .person-code {
+            color: #666;
+            font-size: calc(var(--base-font-size) * 0.9);
+        }
+
+        .person-details {
+            line-height: 1.8;
+            white-space: pre-line;
+            font-family: "SimSun", "Microsoft YaHei", sans-serif;
+        }
+
+        .person-main-info {
+            margin-bottom: 10px;
+        }
+
+        .spouse-info {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--primary-color);
+        }
+
+        .children-section {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--primary-color);
+            display: block;
+        }
+
+        .tree-container {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .tree-title {
+            font-size: calc(var(--base-font-size) * 1.2);
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .generation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .person-node {
+            padding: 12px 10px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 4px;
+            min-width: 120px;
+            border: 1px solid var(--secondary-dark);
+        }
+
+        .person-node.current {
+            background: var(--primary-color);
+            border-color: var(--primary-dark);
+        }
+
+        .person-node .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .person-node .code {
+            font-size: calc(var(--base-font-size) * 0.8);
+        }
+
+        .vertical-connector {
+            width: 2px;
+            height: 20px;
+            background: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .children-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            color: #666;
+        }
+
+        #memorialSection {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,0.08);
+            display: none;
+            border: 1px solid var(--border-color);
+        }
+
+        #memorialSection.show {
+            display: block;
+        }
+
+        .memorial-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        #mainTributeTarget {
+            font-size: calc(var(--base-font-size) * 1.2);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .memorial-card {
+            margin-bottom: 20px;
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: #FCFCFA;
+        }
+
+        .memorial-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: calc(var(--base-font-size) * 1.1);
+        }
+
+        .memorial-content {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .incense-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .incense-count {
+            color: #666;
+            font-size: calc(var(--base-font-size) * 0.9);
+        }
+
+        #spouseMemorialArea {
+            display: none;
+        }
+
+        #incenseAnimation {
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+            color: var(--primary-color);
+            padding: 20px;
+            background: rgba(155, 34, 38, 0.1);
+            border-radius: 8px;
+            border: 1px solid var(--primary-color);
+        }
+
+        #incenseAnimation.large {
+            font-size: calc(var(--base-font-size) * 1.5);
+        }
+
+        #tributeMessage {
+            margin-top: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        #tributeMessage.large {
+            font-size: calc(var(--base-font-size) * 1.2);
+        }
+
+        #tributeHistory {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* 音效控制样式 - 横版 */
+        .audio-controls {
+            max-width: 800px;
+            margin: 30px auto;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+        
+        .audio-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: calc(var(--base-font-size) * 1.1);
+            text-align: center;
+        }
+        
+        .audio-control-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .audio-control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .audio-label {
+            font-size: calc(var(--base-font-size) * 0.9);
+            min-width: 100px;
+        }
+        
+        .audio-slider {
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .audio-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: calc(var(--base-font-size) * 0.9);
+        }
+        
+        .audio-toggle input {
+            margin: 0;
+        }
+        
+        .audio-presets {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .audio-preset {
+            padding: 6px 12px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 4px;
+            font-size: calc(var(--base-font-size) * 0.8);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .audio-preset:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>新安琅琊王氏道桥恒公支<br>谱载查询暨先祖祭祀平台</h1>
+        <p>传承家族意识 · 卅六世先军使命</p>
+    </header>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="codeInput" placeholder="请输入关键词（如：恒、崇道、砡宝）">
+            <button onclick="searchPerson()">查询</button>
+        </div>
+        <div class="font-size-control">
+            <button onclick="adjustFontSize(-1)">显示－</button>
+            <button onclick="adjustFontSize(1)">显示＋</button>
+        </div>
+        <div class="history-container">
+            <div class="history-title">查询历史：</div>
+            <div class="history-list" id="historyList">暂无查询历史</div>
+        </div>
+    </div>
+
+    <div id="result"></div>
+
+    <!-- 音效控制面板 - 移动到完整世系后、祭祀面板前 -->
+    <div class="audio-controls">
+        <div class="audio-title">音效控制</div>
+        
+        <div class="audio-control-group">
+            <div class="audio-toggle">
+                <input type="checkbox" id="bgMusicToggle" checked>
+                <label for="bgMusicToggle">背景音乐</label>
+            </div>
+            <div class="audio-toggle">
+                <input type="checkbox" id="soundEffectsToggle" checked>
+                <label for="soundEffectsToggle">音效</label>
+            </div>
+        </div>
+        
+        <div class="audio-control-group">
+            <label class="audio-label" for="bgMusicVolume">背景音乐音量</label>
+            <input type="range" id="bgMusicVolume" class="audio-slider" min="0" max="100" value="50">
+        </div>
+        
+        <div class="audio-control-group">
+            <label class="audio-label" for="soundEffectsVolume">音效音量</label>
+            <input type="range" id="soundEffectsVolume" class="audio-slider" min="0" max="100" value="70">
+        </div>
+        
+        <div class="audio-presets">
+            <div class="audio-preset" onclick="setAudioPreset('temple')">寺庙氛围</div>
+            <div class="audio-preset" onclick="setAudioPreset('nature')">自然宁静</div>
+            <div class="audio-preset" onclick="setAudioPreset('traditional')">传统祭祀</div>
+        </div>
+    </div>
+
+    <div id="memorialSection">
+        <div class="memorial-header">
+            <div id="mainTributeTarget">当前祭祀</div>
+        </div>
+
+        <div class="memorial-card">
+            <div class="memorial-title" id="personMemorialTitle"></div>
+            <div class="memorial-content" id="personMemorialContent"></div>
+            <div class="incense-controls">
+                <button id="personIncenseBtn">普通香祭祀</button>
+                <button id="personLargeIncenseBtn">大香祭祀</button>
+            </div>
+            <div class="incense-count">
+                普通香祭祀数量：<span id="personIncenseCount">0</span> | 大香祭祀数量：<span id="personLargeIncenseCount">0</span>
+            </div>
+        </div>
+
+        <div id="spouseMemorialArea" class="memorial-card">
+            <div class="memorial-title" id="spouseMemorialTitle"></div>
+            <div class="memorial-content" id="spouseMemorialContent"></div>
+            <div class="incense-controls">
+                <button id="spouseIncenseBtn">普通香祭祀</button>
+                <button id="spouseLargeIncenseBtn">大香祭祀</button>
+            </div>
+            <div class="incense-count">
+                 普通香祭祀数量：<span id="spouseIncenseCount">0</span> | 大香祭祀数量：<span id="spouseLargeIncenseCount">0</span>
+            </div>
+        </div>
+
+        <div id="incenseAnimation">
+            🔥🔥🔥 🎋 祭祀中... 🎋 🔥🔥🔥
+            <div id="tributeMessage"></div>
+        </div>
+
+        <div id="tributeHistory">暂无祭祀记录</div>
+    </div>
+
+    <script>
+        // 家谱数据（简略版）
+        const genealogyData = {
+    "十九世祖": {
+        "name": "恒",
+        "details": "均祥幼子道桥祖│字孟九后裔迁墓葬于道观桥配陈氏生子一崇道",
+        "father": "",
+        "children": ["二十世祖"]
+    },
+    "二十世祖": {
+        "name": "崇道",
+        "details": "恒之子│字太安葬于坟峦配毛氏生子二绍顶绍育",
+        "father": "十九世祖",
+        "children": ["总支21-1", "总支21-2"]
+    },
+    "总支21-1": {
+        "name": "绍顶",
+        "details": "崇道长子│葬于坟峦配余氏继潘氏生子二砡宝砡垂",
+        "father": "二十世祖",
+        "children": ["长房始祖", "幼房始祖"]
+    },
+    "总支21-2": {
+        "name": "绍育",
+        "details": "崇道幼子│配柳氏生子三砡栅砡赞砡机",
+        "father": "二十世祖",
+        "children": ["总支22-3", "总支22-4", "总支22-5"]
+    },
+    "长房始祖": {
+        "name": "砡宝",
+        "details": "绍顶长子│字伯桥葬于门山配李氏继杨氏生子三楀木试",
+        "father": "总支21-1",
+        "children": ["长房23-1", "长房23-2", "长房23-3"]
+    },
+    "幼房始祖": {
+        "name": "砡垂",
+        "details": "绍顶幼子│字西塘葬于门山配刘氏续崔氏生子二榆榧",
+        "father":  "总支21-1",
+        "children": ["幼房23-1", "幼房23-2"]
+     },
+    "幼房23-1": {
+        "name": "榆",
+        "details": "砡垂长子│葬于门山配李氏生子一添泰",
+        "father":  "幼房始祖",
+        "children": ["幼房24-1"]
+     },
+    "幼房23-2": {
+        "name": "榧",
+        "details": "砡垂幼子│葬于门山配谢氏生子一添序",
+        "father":  "幼房始祖",
+        "children": ["幼房24-2"]
+     },
+    "幼房24-1": {
+        "name": "添泰",
+        "details": "榆之子│字徂塘生于乙亥年九月十一日寅时葬于门山配葛氏又吴氏生于癸巳年六月二十日生子二道中道庸",
+        "father":  "幼房23-1",
+        "children": ["幼房25-1", "幼房25-2"]
+     },
+    "幼房24-2": {
+        "name": "添序",
+        "details": "榧之子│字祖溪生于乙酉年九月廿三日丑时葬于坟峦配陈氏生于乙酉年十二月初二日丑时又董氏与夫葬同处生子二道质道彬",
+        "father":  "幼房23-2",
+        "children": ["四房共祖", "幼房25-4"]
+     },
+    "幼房25-1": {
+        "name": "道中",
+        "details": "添泰长子│字诚甫生于庚戌年四月十七日辰时葬于门山配刘氏生于辛亥年二月廿三日丑时生子二惟采惟享",
+        "father":  "幼房24-1",
+        "children": ["幼房26-1", "幼房26-2"]
+     },
+    "幼房25-2": {
+        "name": "道庸",
+        "details": "添泰幼子│字汝常生于辛未年三月十九日亥时殁于康熙乙亥年正月十六日申时葬于坟峦巳向配郑氏生于甲申年八月十一日午时殁于戊申年四月初九日辰时与夫葬同处生子一眉介",
+        "father":  "幼房24-1",
+        "children": ["幼房26-3"]
+     },
+    "四房共祖": {
+        "name": "道质",
+        "details": "添序长子│字汝闻生于乙丑年十一月十二日未时殁于乙亥年十二月廿一日辰时葬于坟峦向东配董氏生于乙丑年十一月十二日子时又周氏生于癸未年六月十七日午时殁于辛卯年九月十一日子时葬于坟峦生子五小履克裕克绣云友廷选",
+        "father":  "幼房24-2",
+        "children": ["后房前房始祖","下房始祖", "幼房26-6", "上房始祖"," 幼房26-8"]
+     },
+    "幼房25-4": {
+        "name": "道彬",
+        "details": "添序幼子│字先仪生于庚午年葬于门山无传",
+        "father":  "幼房24-2",
+        "children": []
+     },
+    "幼房26-1": {
+        "name": "惟采",
+        "details": "道中长子│谱名作垂生于崇祯己卯年九月初八日丑时殁于康熙庚辰年七月初四日巳时葬于坟峦巳向配夏氏生于丙子年与夫葬同处生子一凯南",
+        "father":  "幼房25-1",
+        "children": ["幼房27-1"]
+     },
+    "幼房26-2": {
+        "name": "惟享",
+        "details": "道中幼子│谱名作详生于庚寅年葬于坟峦",
+        "father":  "幼房25-1",
+        "children": []
+     },
+    "幼房26-3": {
+        "name": "眉介",
+        "details": "道庸之子│谱名作俦生于康熙丙辰年七月初二日亥时殁于戊午年四月初八日巳时葬于祖山巳向配严氏生于庚申年七月十一日酉时殁于乾隆廿一年正月十八日寅时葬于坟峦生子四闻陶闻兰闻达闻源",
+        "father":  "幼房25-2",
+        "children": ["幼房27-2", "幼房27-3", "幼房27-4", "幼房27-5"]
+     },
+    "后房前房始祖": {
+        "name": "小履",
+        "details": "道质长子│谱名作旺生于康熙癸丑年五月十三日巳时殁于雍正甲寅年九月十六日葬于过水颈向西南配郭氏生于康熙甲寅年三月十三日巳时殁于辛卯年七月初九日葬于坟峦巳向继张氏生于康熙癸亥年四月廿三日卯时葬于坟峦向南生子四万俊万明万太张氏出万彩郭氏出",
+        "father":  "四房共祖",
+        "children": ["幼房27-6", "幼房27-7", "幼房27-8", "幼房27-9"]
+     },
+    "下房始祖": {
+        "name": "克裕",
+        "details": "道质次子│谱名作勤生于康熙乙卯年十月十四日子时殁于乾隆癸丑年十月初十日巳时葬于坟峦巽向配陈氏生于康熙癸酉年二月十一日亥时殁于雍正乙卯年正月初七日亥时葬于坟峦巳向生子四时明振烈振潮时学",
+        "father":  "四房共祖",
+        "children": ["幼房27-10", "幼房27-11", "幼房27-12", "幼房27-13"]
+     },
+    "幼房26-6": {
+        "name": "克绣",
+        "details": "道质三子│谱名作俊生于康熙戊午年十月廿五日子时殁于乾隆辛未年六月葬于坟峦巳向配刘氏生于康熙丙子年十月十七日卯时殁于乾隆丙子年正月廿八日葬于叶家山向西生子时泽时步时俊时习",
+        "father":  "四房共祖",
+        "children": ["幼房27-14", "幼房27-15", "幼房27-16", "幼房27-17"]
+     },
+    "上房始祖": {
+        "name": "云友",
+        "details": "道质四子│谱名作岫生于康熙辛酉年十一月廿三日午时殁于乾隆甲子年七月十一日辰时葬于门山子向配徐氏生于康熙乙亥年七月十八日午时殁于乾隆庚辰年八月十五日寅时与夫葬同处生子二能艳能灿",
+        "father":  "四房共祖",
+        "children": ["幼房27-18", "幼房27-19"]
+     },
+    "幼房26-8": {
+        "name": "廷选",
+        "details": "道质幼子│谱名作竭生于康熙乙丑年二月廿七日子时殁于雍正辛亥年二月初四日寅时葬于坟峦巳向配柳氏生于康熙甲戌年八月十七日亥时殁于乙未年十二月十一日丑时葬于门山生子二能近能进",
+        "father":  "四房共祖",
+        "children": ["幼房27-20", "幼房27-21"]
+     },
+    "幼房27-1": {
+        "name": "凯南",
+        "details": "惟采之子│谱名崇彬生于康熙庚申年正月十四日亥时殁于雍正乙卯年二月十五日子时葬于门山亥向配梅氏生于康熙乙卯年十二月初八日申时殁于乾隆丙戌年七月初一日未时葬于门山向北生子三如宾如煌如相",
+        "father":  "幼房26-1",
+        "children": ["幼房28-1", "幼房28-2", "幼房28-3"]
+     },
+    "幼房27-2": {
+        "name": "闻陶",
+        "details": "眉介长子│谱名崇凯生于康熙壬午年九月初九日卯时殁于乙巳年十月初六日申时",
+        "father":  "幼房26-3",
+        "children": []
+     },
+    "幼房27-3": {
+        "name": "闻兰",
+        "details": "眉介次子│谱名崇槐生于康熙乙酉年二月廿九日戌时殁于雍正乙卯年二月十五日子时葬于门山亥向配陈氏生于庚寅年九月继吴氏生女一适许",
+        "father":  "幼房26-3",
+        "children": []
+     },
+    "幼房27-4": {
+        "name": "闻达",
+        "details": "眉介三子│谱名崇荷生于癸巳年六月廿六日卯时葬于门山向北",
+        "father":  "幼房26-3",
+        "children": []
+     },
+    "幼房27-5": {
+        "name": "闻源",
+        "details": "眉介幼子│谱名崇湳生于康熙庚子年四月初八日午时殁于乾隆庚午年十一月初十日辰时葬于门山配吴氏生子一洽和女一适殷",
+        "father":  "幼房26-3",
+        "children": ["幼房28-4"]
+     },
+    "幼房27-6": {
+        "name": "万俊",
+        "details": "小履长子│谱名崇濬生于康熙丙子年十一月廿二日辰时殁于乾隆丁亥年十一月十六日酉时葬于门山配曹氏生于康熙辛巳年十二月廿三日子时继翟氏生于康熙辛卯年二月初十日戌时殁于乾隆戊戌年十二月十一日戌时葬于郭坞嘴午山子向生子四荣青荣任荣升荣春女二",
+        "father":  "四房共祖",
+        "children": ["幼房28-5", "幼房28-6", "幼房28-7", "幼房28-8"]
+     },
+    "幼房27-7": {
+        "name": "万明",
+        "details": "小履次子│谱名崇哲生于康熙癸未年正月初十日寅时殁于乾隆癸巳年六月初四日酉时葬于坟峦巳向配周氏生于康熙辛卯年十二月廿九日辰时殁于嘉庆癸亥年二月初十日寅时葬于坟峦亥山巳兼乾巽向生子三朝宗朝源朝萱女二长适宛幼适沈",
+        "father":  "四房共祖",
+        "children": ["幼房28-9", "幼房28-10", "幼房28-11"]
+     },
+    "幼房27-8": {
+        "name": "万太",
+        "details": "小履三子│谱名崇闻生于康熙己丑年六月十五日巳时殁于乾隆乙丑年十二月十八日戌时葬于门山向北配杨氏生于康熙乙未年五月十七日巳时殁于乾隆己丑年十月初六日亥时葬于梅神嘴向西酉生子一良才",
+        "father":  "四房共祖",
+        "children": ["幼房28-12"]
+     },
+    "幼房27-9": {
+        "name": "万彩",
+        "details": "小履幼子│谱名崇名生于康熙丙申年七月廿九日寅时殁于乾隆癸丑年二月廿九日亥时葬于门山向北配张氏生于戊戌年六月初八日巳时殁于癸巳年六月廿二日寅时葬于梅神嘴向北生子一庭英",
+        "father":  "四房共祖",
+        "children": ["幼房28-13"]
+     },
+    "幼房27-10": {
+        "name": "时明",
+        "details": "克裕长子│谱名崇视生于康熙庚寅年十月十八日午时殁于乾隆甲寅年九月初六日辰时葬于门山向北配柳氏生于康熙辛卯年九月十六日午时殁于雍正甲寅年十月十三日未时葬于门山向北继梅氏生于康熙丁卯年正月十九日卯时殁于乾隆乙未年八月十八日未时葬于门山向北生子二长桂斯育",
+        "father":  "四房共祖",
+        "children": ["幼房28-14", "幼房28-15"]
+     },
+    "幼房27-11": {
+        "name": "振烈",
+        "details": "克裕次子│谱名崇听生于康熙辛丑年正月廿七日亥时殁于乾隆戊午年十月十七日戌时葬于坟峦乾山巽向配李氏与夫同庚六月初二日子时殁于乾隆甲子年正月廿一日辰时与夫合墓生子四其禄焕斗焕彩焕章女一适张",
+        "father":  "四房共祖",
+        "children": ["幼房28-16", "幼房28-17", "幼房28-18", "幼房28-19"]
+     },
+    "幼房27-12": {
+        "name": "振潮",
+        "details": "克裕三子│谱名崇貌生于雍正甲辰年十二月初八日亥时殁于乾隆辛丑年九月初三日卯时葬于坟峦向南配叶氏生于雍正庚戌年八月初二日亥时嘉庆癸亥年六月廿五日巳时葬于门山向北生子三理繁谦远兼善女三长适周次适杨幼适倪",
+        "father":  "四房共祖",
+        "children": ["幼房28-20", "幼房28-21", "幼房28-22"]
+     },
+    "幼房27-13": {
+        "name": "时学",
+        "details": "克裕幼子│谱名崇思生于雍正辛亥年五月十一日丑时殁于乾隆庚戌年十月廿二日子时葬于坟峦乾巽兼亥巳向配殷氏生于乾隆丁巳年五月廿六日巳时生子四声扬扬献扬进重能女一适杨",
+        "father":  "四房共祖",
+        "children": ["幼房28-23", "幼房28-24", "幼房28-25", "幼房28-26"]
+     },
+    "幼房27-14": {
+        "name": "时泽",
+        "details": "克绣长子│谱名崇霖生于康熙癸巳年十一月廿四日未时殁于乾隆癸酉年八月廿一日酉时葬于门山向北配陈氏生于康熙乙未年十月廿八日子时殁于乾隆壬午年酉时与夫葬同处乾巽向生子四赐冕邦治书法勅常",
+        "father":  "幼房26-6",
+        "children": ["幼房28-27", "幼房28-28", "幼房28-29", "幼房28-30"]
+     },
+    "幼房27-15": {
+        "name": "时步",
+        "details": "克绣次子│谱名崇云生于壬寅年十月十四日未时葬于门山",
+        "father":  "幼房26-6",
+        "children": []
+     },
+    "幼房27-16": {
+        "name": "时俊",
+        "details": "克绣三子│谱名崇暇生于雍正戊申年六月十九日午时殁于乙未年十月廿七日申时葬于门山向北",
+        "father":  "幼房26-6",
+        "children": []
+     },
+    "幼房27-17": {
+        "name": "时习",
+        "details": "克绣幼子│谱名崇廉生于雍正辛亥年十月十六日寅时殁于癸酉年葬于门山",
+        "father":  "幼房26-6",
+        "children": []
+     },
+    "幼房27-18": {
+        "name": "能艳",
+        "details": "云友长子│谱名崇安生于康熙戊戌年正月初八日午时殁于乾隆丙午年十一月十三日未时葬于门山向北配姜氏与夫同庚正月廿八日辰时葬于梅神嘴侧室李氏生于康熙甲子年八月初四日亥时生子七惟东欢林兰瑞园林桑林姜氏出荣观荣忻李氏出女一适孙李氏出",
+        "father":  "四房共祖",
+        "children": ["幼房28-31", "幼房28-32", "幼房28-33", "幼房28-34", "幼房28-35", "幼房28-36", "幼房28-37"]
+     },
+    "幼房27-19": {
+        "name": "能灿",
+        "details": "云友幼子│谱名崇宁生于雍正癸卯年九月三十日寅时殁于嘉庆丙辰年六月廿五日午时葬于叶家山甲庚兼寅申三分向配石氏生于雍正乙巳年十月十七日巳时殁于乾隆乙卯年八月初十日午时与夫合墓生子四斯赞思进斯茂步光",
+        "father":  "四房共祖",
+        "children": ["幼房28-38", "幼房28-39", "幼房28-40", "幼房28-41"]
+     },
+    "幼房27-20": {
+        "name": "能近",
+        "details": "廷选长子│谱名崇容生于康熙癸巳年四月初八日亥时殁于乾隆丙子年四月廿八日辰时葬于门山向东配徐氏生于康熙壬辰年十一月十六日亥时殁于乾隆戊戌年二月初十日亥时与夫葬同处生子三秉原志宜宜则女二长适刘幼适曹",
+        "father":  "幼房26-8",
+        "children": ["幼房28-42", "幼房28-43", "幼房28-44"]
+     },
+    "幼房27-21": {
+        "name": "能进",
+        "details": "廷选幼子│谱名崇萱生于康熙庚子年十一月廿一日子时殁于乾隆癸巳年二月十九日申时葬于门山配潘氏生于雍正甲辰年四月廿一日子时殁于嘉庆丁巳年十二月十九日戌时与夫葬同处向北生子三善长秉猷建猷女二长适周幼适张",
+        "father":  "幼房26-8",
+        "children": ["幼房28-45", "幼房28-46", "幼房28-47"]
+     },
+    "幼房28-1": {
+        "name": "如宾",
+        "details": "凯南长子│谱名必织生于康熙丁酉年十一月十一日酉时葬于门山向北配徐氏生于康熙辛丑年正月十三日辰时与夫葬同处生子一立早",
+        "father":  "幼房27-1",
+        "children": ["幼房29-1"]
+     },
+    "幼房28-2": {
+        "name": "如煌",
+        "details": "凯南次子│生于雍正甲辰年八月廿七日寅时葬于门山",
+        "father":  "幼房27-1",
+        "children": []
+     },
+    "幼房28-3": {
+        "name": "如相",
+        "details": "凯南幼子│谱名必书生于雍正癸丑年九月廿一日戌时",
+        "father":  "幼房27-1",
+        "children": []
+     },
+    "幼房28-4": {
+        "name": "洽和",
+        "details": "闻源之子│谱名必谊生于乾隆乙丑年六月廿四日丑时葬于麻城山配卫氏生于乙丑年正月初三日辰时与夫葬同处",
+        "father":  "幼房27-5",
+        "children": []
+     },
+    "幼房28-5": {
+        "name": "荣青",
+        "details": "万俊长子│谱名必声生于雍正辛亥年正月初七日戌时葬于郭坞嘴向西南配吴氏生子二群沾群芳",
+        "father":  "幼房27-6",
+        "children": ["幼房29-2", "幼房29-3"]
+     },
+    "幼房28-6": {
+        "name": "荣任",
+        "details": "万俊次子│谱名必克生于雍正癸丑年三月廿九日亥时殁于丙辰年二月廿七日亥时葬于叶家山向西配李氏",
+        "father":  "幼房27-6",
+        "children": []
+     },
+    "幼房28-7": {
+        "name": "荣升",
+        "details": "万俊三子│谱名必辉生于乾隆己未年三月廿二日寅时殁于乾隆庚戌年正月廿四日寅时葬于叶家山向西配沈氏葬于叶家山向北又李氏生于乾隆丁巳年十月廿九日巳时殁于嘉庆乙亥年七月十八日辰时与夫葬同处向西",
+        "father":  "幼房27-6",
+        "children": []
+     },
+    "幼房28-8": {
+        "name": "荣春",
+        "details": "万俊幼子│谱名必彰生于雍正癸丑年十二月廿一日酉时殁于嘉庆壬申年六月十三日卯时葬于郭坞嘴向南配秦氏生于乾隆甲戌年八月十七日子时生子二茂彩茂林",
+        "father":  "幼房27-6",
+        "children": ["幼房29-4", "幼房29-5"]
+     },
+    "幼房28-9": {
+        "name": "朝宗",
+        "details": "万明长子│谱名必臣太学生生于乾隆丁巳年六月十九日巳时殁于壬辰年八月初四日寅时葬于坟峦亥山巳兼乾巽向配余氏生于乾隆戊午年七月初十日辰时殁于乾隆乙卯年七月廿六日巳时与夫葬同处同向侧室陈氏生子二兆行瑞祥",
+        "father":  "幼房27-7",
+        "children": ["幼房29-6", "幼房29-7"]
+     },
+    "幼房28-10": {
+        "name": "朝源",
+        "details": "万明次子│谱名必湘生于乾隆丁卯年正月廿一日戌时殁于乾隆癸丑年十月初一日酉时葬于坟峦亥巳兼乾巽向配吴氏生于乾隆丁未年正月初二日巳时与夫葬同处同向继张氏生于乾隆己卯年七月十一日未时殁于道光壬辰年四月十一日未时葬于郭坞嘴中牌向西生子三兆祥南选吴氏出日新张氏出女二长适崔吴氏出幼适许张氏出",
+        "father":  "幼房27-7",
+        "children": ["幼房29-8", "幼房29-9", "幼房29-10"]
+     },
+    "幼房28-11": {
+        "name": "朝萱",
+        "details": "万明幼子│谱名必证生于乾隆辛未年三月三十日午时",
+        "father":  "幼房27-7",
+        "children": []
+     },
+    "幼房28-12": {
+        "name": "良才",
+        "details": "万太之子│谱名必栋生于乾隆癸丑年六月十八日午时殁于道光癸巳年六月十五日午时葬于梅神嘴向西配熊氏生子一映辉",
+        "father":  "幼房27-8",
+        "children": ["幼房29-11"]
+     },
+    "幼房28-13": {
+        "name": "庭英",
+        "details": "万彩之子│谱名必连生于乾隆癸丑年三月初四日寅时殁于庚寅年八月十一日巳时葬于梅神嘴向西配杨氏生于乙丑年十月廿一日亥时殁于乾隆甲寅年九月初一日辰时葬于郭坞嘴向西南生子一馥兰女一适郭杨氏数十年苦节详载邑志",
+        "father":  "幼房27-9",
+        "children": ["幼房29-12"]
+     },
+    "幼房28-14": {
+        "name": "长桂",
+        "details": "时明长子│谱名必佑生于雍正辛亥年六月廿三日戌时殁于乾隆己巳年葬于门山向南配沈氏",
+        "father":  "幼房27-10",
+        "children": []
+     },
+    "幼房28-15": {
+        "name": "斯育",
+        "details": "时明幼子│谱名必恃生于乾隆辛未年九月廿八日戌时殁于嘉庆庚辰年六月十七日午时葬于门山辰戌向配夏氏生于乾隆丁丑年十月廿四日巳时殁于庚戌年六月初六日寅时葬于门山向北又张氏生于乾隆壬午年九月十三日子时殁于道光壬辰年七月初五日丑时生子五并茂怀茂夏氏出怀芳怀林怀秀张氏出女一适李张氏出",
+        "father":  "幼房27-10",
+        "children": ["幼房29-13", "幼房29-14", "幼房29-15", "幼房29-16", "幼房29-17"]
+     },
+    "幼房28-16": {
+        "name": "其禄",
+        "details": "振烈长子│谱名必得生于乾隆癸丑年二月初五日亥时殁于嘉庆丙辰年二月十五日卯时葬于门山向北配傅氏生于乾隆庚午年三月廿七日辰时殁于嘉庆戊辰年四月初五日巳时与夫葬同处向西南生子三灿秘灿华灿林女一适陈",
+        "father":  "幼房27-11",
+        "children": ["幼房29-18", "幼房29-19", "幼房29-20"]
+     },
+    "幼房28-17": {
+        "name": "焕斗",
+        "details": "振烈次子│谱名必取生于乾隆甲戌年十二月廿八日辰时殁于嘉庆庚申年四月初十日辰时葬于门山亥向配彭氏生子二怀义怀终",
+        "father":  "幼房27-11",
+        "children": ["幼房29-21", "幼房29-22"]
+     },
+    "幼房28-18": {
+        "name": "焕彩",
+        "details": "振烈三子│谱名必焜生于乾隆戊寅年十一月十六日子时殁于乾隆丙午年十一月初一日辰时葬于门山向北",
+        "father":  "幼房27-11",
+        "children": []
+     },
+    "幼房28-19": {
+        "name": "焕章",
+        "details": "振烈幼子│谱名必全生于乾隆甲申年五月初一日亥时殁于嘉庆庚辰年九月初八日巳时葬于门山向东配邹氏生于乾隆辛巳年十二月廿九日戌时殁于道光癸未年四月初六日巳时与夫葬同处向北生子一怀发",
+        "father":  "幼房27-11",
+        "children": ["幼房29-23"]
+     },
+    "幼房28-20": {
+        "name": "理繁",
+        "details": "振潮长子│谱名必才生于乾隆乙亥年八月初六日午时殁于丁未年八月初七日卯时葬于门山向北配郑氏女一适李",
+        "father":  "幼房27-12",
+        "children": []
+     },
+    "幼房28-21": {
+        "name": "谦远",
+        "details": "振潮次子│谱名必能生于乾隆己卯年九月初二日午时葬于门山向北",
+        "father":  "幼房27-12",
+        "children": []
+     },
+    "幼房28-22": {
+        "name": "兼善",
+        "details": "振潮幼子│谱名必用生于乾隆甲申年十一月廿四日午时殁于嘉庆丁卯年八月十一日戌时葬于门山向北配唐氏生于乾隆辛卯年五月廿五日辰时殁于道光壬辰年八月初七日寅时葬于门山向北生子二玉才玉典",
+        "father":  "幼房27-12",
+        "children": ["幼房29-24", "幼房29-25"]
+     },
+    "幼房28-23": {
+        "name": "声扬",
+        "details": "时学长子│谱名必售生于乾隆丙子年三月廿二日亥时殁于嘉庆丙寅年正月十一日亥时葬于门山向路边坎下向东配刘氏生于乾隆壬午年二月十六日子时殁于道光壬辰年十一月十一日申时与夫葬同处生子三怀高怀泰邦采女一适沈",
+        "father":  "幼房27-13",
+        "children": ["幼房29-26", "幼房29-27", "幼房29-28"]
+     },
+    "幼房28-24": {
+        "name": "扬献",
+        "details": "时学次子│谱名必耀生于乾隆己卯年五月廿八日辰时殁于嘉庆丙寅年十月初一日亥时葬于门山向北配沈氏生子一协采",
+        "father":  "幼房27-13",
+        "children": ["幼房29-29"]
+     },
+    "幼房28-25": {
+        "name": "扬进",
+        "details": "时学三子│谱名必举生于乾隆丙戌年三月十六日辰时殁于道光壬寅年八月初九日亥时葬于门山中凸向北配刘氏生于乾隆己丑年九月廿七日寅时殁于道光戊子年八月初十日丑时葬于门山向东生子二晓林华彩女二长适杨幼适葛",
+        "father":  "幼房27-13",
+        "children": ["幼房29-30", "幼房29-31"]
+     },
+    "幼房28-26": {
+        "name": "重能",
+        "details": "时学幼子│谱名必伟生于乾隆壬辰年十二月廿四日午时葬于门山向北",
+        "father":  "幼房27-13",
+        "children": []
+     },
+    "幼房28-27": {
+        "name": "赐冕",
+        "details": "时泽长子│谱名必绋生于乾隆庚申年二月初八日巳时",
+        "father":  "幼房27-14",
+        "children": []
+     },
+    "幼房28-28": {
+        "name": "邦治",
+        "details": "时泽次子│谱名必般生于乾隆甲子年七月廿九日丑时殁于嘉庆丙寅年八月十二日未时葬于叶家山向南配周氏",
+        "father":  "幼房27-14",
+        "children": []
+     },
+    "幼房28-29": {
+        "name": "书法",
+        "details": "时泽三子│谱名必遂生于乾隆丁卯年十月初一日子时殁于乾隆庚戌年八月廿九日未时葬于镜得山向南",
+        "father":  "幼房27-14",
+        "children": []
+     },
+    "幼房28-30": {
+        "name": "勅常",
+        "details": "时泽幼子│谱名必纟巳生于乾隆癸酉年二月廿九日戌时殁于乾隆辛亥年十月廿四日戌时葬于镜得山向南配沈氏生于乾隆丙子年十月十五日辰时殁于乾隆癸丑年八月廿四日申时与夫葬同处向南生子一与云",
+        "father":  "幼房27-14",
+        "children": ["幼房29-32"]
+     },
+    "幼房28-31": {
+        "name": "荣观",
+        "details": "能艳长子│谱名必祀生于乾隆己未年八月十九日丑时葬于门山配赵氏生于丙寅年与夫葬同处",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-32": {
+        "name": "荣忻",
+        "details": "能艳次子│谱名必法生于乾隆丙寅年十一月廿一日午时葬于门山",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-33": {
+        "name": "惟东",
+        "details": "能艳三子│谱名必欣生于乾隆乙酉年七月廿五日巳时殁于嘉庆丁巳年八月初四日辰时葬于门山向北配董氏",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-34": {
+        "name": "欢林",
+        "details": "能艳四子│谱名必旺生于乾隆己丑年五月初四日未时殁于乾隆庚戌年七月十三日未时葬于门山向北配杨氏",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-35": {
+        "name": "兰瑞",
+        "details": "能艳五子│谱名必畅生于乾隆丙申年十月十二日未时葬于门山向北配张氏与夫同庚十二月二十日辰时殁于嘉庆丙辰年正月十二日卯时葬于夫同山同向生子一兆泰",
+        "father":  "幼房27-18",
+        "children": ["幼房29-33"]
+     },
+    "幼房28-36": {
+        "name": "园林",
+        "details": "能艳六子│谱名必茂生于乾隆丙申年三月廿九日戌时殁于癸亥年二月廿七日未时葬于门山向北",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-37": {
+        "name": "桑林",
+        "details": "能艳幼子│谱名必达生于乾隆丁酉年",
+        "father":  "幼房27-18",
+        "children": []
+     },
+    "幼房28-38": {
+        "name": "斯赞",
+        "details": "能灿长子│谱名必勷生于乾隆丁卯年三月十三日亥时殁于嘉庆丙寅年正月三十日戌时葬于叶家山向西南配夏氏生于乾隆辛未年七月十五日亥时殁于乾隆甲寅年十月廿三日未时葬于门山向西南继张氏生于乾隆乙亥年十月初八日亥时殁于道光乙酉年五月十一日巳时葬于门山向北生子一显庸女一适周夏氏出",
+        "father":  "幼房27-19",
+        "children": ["幼房29-34"]
+     },
+    "幼房28-39": {
+        "name": "思进",
+        "details": "能灿次子│谱名必膏生于乾隆乙亥年十一月初六日丑时殁于道光丙戌年四月初四日未时葬于坟峦向东南配熊氏生于乾隆庚辰年二月十一日寅时殁于道光戊戌年正月十八日卯时与夫合墓生子三应奇玉达玉轩女二长适柳幼适陈",
+        "father":  "幼房27-19",
+        "children": ["幼房29-35", "幼房29-36", "幼房29-37"]
+     },
+    "幼房28-40": {
+        "name": "斯茂",
+        "details": "能灿三子│谱名必巍生于乾隆丁丑年十一月廿七日戌时殁于道光乙酉年二月初一日申时葬于门山配张氏生于乾隆丁亥年十月初五日寅时殁于嘉庆戊午年三月初五日卯时葬于叶家山向西南继崔氏生于乾隆甲申年十月初十日酉时殁于嘉庆戊辰年三月十五日亥时与夫葬同处向西南生子一开泰崔氏出女一适陈张氏出",
+        "father":  "幼房27-19",
+        "children": ["幼房29-38"]
+     },
+    "幼房28-41": {
+        "name": "步光",
+        "details": "能灿幼子│谱名必照业儒生于乾隆辛巳年十月十九日丑时殁于道光壬辰年十二月初六日巳时葬于门山向北配柯氏生于乾隆丙戌年四月廿五日未时殁于嘉庆壬申年八月廿八日午时葬于叶家山向西南生子二玉春玉荣女一适柯",
+        "father":  "幼房27-19",
+        "children": ["幼房29-39", "幼房29-40"]
+     },
+    "幼房28-42": {
+        "name": "秉原",
+        "details": "能近长子│谱名必仁生于乾隆辛酉年二月廿六日未时殁于丁酉年八月十八日辰时葬于门山配宛氏生子一言志女一适赵",
+        "father":  "幼房27-20",
+        "children": ["幼房29-41"]
+     },
+    "幼房28-43": {
+        "name": "志宜",
+        "details": "能近次子│谱名必仪生于乾隆乙丑年十一月初二日寅时殁于壬寅年十月十六日未时葬于门山配周氏生女二长适熊幼适刘",
+        "father":  "幼房27-20",
+        "children": []
+     },
+    "幼房28-44": {
+        "name": "宜则",
+        "details": "能近幼子│谱名必礼生于乾隆庚午年正月初十日未时殁于嘉庆庚申年六月十六日午时葬于门山向西南配郑氏与夫同庚六月廿四日午时殁于乾隆癸卯年四月十二日巳时与夫葬同处向北生子二惟有惟廷",
+        "father":  "幼房27-20",
+        "children": ["幼房29-42", "幼房29-43"]
+     },
+    "幼房28-45": {
+        "name": "善长",
+        "details": "能进长子│谱名必原生于乾隆癸酉年十一月初九日戌时殁于戊戌年七月初七日寅时葬于门山向北配许氏生子一以万女一适许",
+        "father":  "幼房27-21",
+        "children": ["幼房29-44"]
+     },
+    "幼房28-46": {
+        "name": "秉猷",
+        "details": "能进次子│谱名必亨生于乾隆丁丑年三月十三日午时",
+        "father":  "幼房27-21",
+        "children": []
+     },
+    "幼房28-47": {
+        "name": "建猷",
+        "details": "能进幼子│谱名必丽生于乾隆壬午年十月十九日丑时殁于嘉庆丁丑年二月初一日戌时葬于门山午山子向配尹氏生于乾隆乙酉年十一月初十日戌时殁于道光辛卯年三月十五日寅时葬于叶家山嘴午子向生子二振铎道济",
+        "father":  "幼房27-21",
+        "children": ["幼房29-45", "幼房29-46"]
+     },
+    "幼房29-1": {
+        "name": "立早",
+        "details": "如宾之子│谱名命彰生于乾隆庚辰年三月初六日戌时配邹氏生于乾隆辛巳年七月初五日戌时葬于门山向北",
+        "father":  "幼房28-1",
+        "children": []
+     },
+    "幼房29-2": {
+        "name": "群沾",
+        "details": "荣青长子│谱名命甘生于乾隆庚寅年四月廿四日寅时",
+        "father":  "幼房28-5",
+        "children": []
+     },
+    "幼房29-3": {
+        "name": "群芳",
+        "details": "荣青幼子│谱名命棠生于乾隆甲午年四月廿五日寅时殁于嘉庆丙寅年十二月廿一日寅时葬于门山向西南",
+        "father":  "幼房28-5",
+        "children": []
+     },
+    "幼房29-4": {
+        "name": "茂彩",
+        "details": "荣春长子│谱名命松生于乾隆庚寅年十月十六日寅时殁于道光丁酉年十月初十日午时葬于门山坐东向西后裔良策",
+        "father":  "幼房28-8",
+        "children": []
+     },
+    "幼房29-5": {
+        "name": "茂林",
+        "details": "荣春幼子│谱名命竹生于乾隆丁酉年五月十五日申时殁于道光丁未年十月十二日辰时葬于坟峦配张氏生于乾隆甲辰年正月十四日戌时殁于同治壬戌年正月廿七日午时葬于门山向北生子二良佐良策女一适袁",
+        "father":  "幼房28-8",
+        "children": ["幼房30-1", "幼房30-2"]
+     },
+    "幼房29-6": {
+        "name": "兆行",
+        "details": "朝宗长子│谱名命龙生于乾隆壬辰年四月初六日酉时葬于门山坐东南向西北配殷氏",
+        "father":  "幼房28-9",
+        "children": []
+     },
+    "幼房29-7": {
+        "name": "瑞祥",
+        "details": "朝宗幼子│谱名命光生于乾隆辛丑年六月廿五日未时殁于道光乙未年三月初一日子时葬于坟峦戌辰向配吴氏生于乾隆辛丑年十二月十一日亥时殁于道光丁酉年六月初一日午时葬于坟峦戌辰向纳陈氏生于嘉庆甲子年八月十八日未时殁于道光乙巳年十月初五日戌时与夫葬同处同向生子二硕卿寿卿女一适周",
+        "father":  "幼房28-9",
+        "children": ["幼房30-3", "幼房30-4"]
+     },
+    "幼房29-8": {
+        "name": "兆祥",
+        "details": "朝源长子│谱名命廷生于乾隆丁亥年九月廿二日寅时殁于嘉庆庚午年九月廿八日未时葬于郭坞嘴向西配宛氏生于乾隆己丑年十二月十七日辰时殁于咸丰丁巳年二月初七日戌时葬于坟峦亥巳向生子二锦纶锦蔚女二长适欧阳幼适赵",
+        "father":  "幼房28-10",
+        "children": ["幼房30-5", "幼房30-6"]
+     },
+    "幼房29-9": {
+        "name": "南选",
+        "details": "朝源次子│谱名命升生于乾隆癸巳年九月十二日巳时殁于道光丙戌年八月廿八日丑时葬于坟峦乾巽向配李氏生于乾隆甲午年五月十八日未时殁于道光戊申年九月三十日申时葬于坟峦乾巽兼亥巳向生子三锦台锦湘锦憅女一适吴",
+        "father":  "幼房28-10",
+        "children": ["幼房30-7", "幼房30-8", "幼房30-9"]
+     },
+    "幼房29-10": {
+        "name": "日新",
+        "details": "朝源幼子│谱名命秩邑庠生号屏山学名维垣生于乾隆壬子年十一月初九日亥时殁于道光丙午年四月十一日未时葬于祖山金星顶下竹峦亥山巳向配宛氏生于乾隆庚戌年十一月廿九日午时殁于道光辛丑年三月廿一日丑时葬于沈下舍湾下手沈先户葫芦山东边寅山申兼艮坤向峦下田八升继吴氏生于乾隆乙卯年十月初四日寅时殁于道光乙巳年八月初一日巳时葬于坟峦乾巽向生子三锦城春卿宝卿宛氏出",
+        "father":  "幼房28-10",
+        "children": ["幼房30-10", "幼房30-11", "幼房30-12"]
+     },
+    "幼房29-11": {
+        "name": "映辉",
+        "details": "良才之子│谱名命廉生于乾隆辛卯年五月廿七日午时殁于嘉庆己巳年四月初七日未时葬于郭坞嘴向南配刘氏生于乾隆甲辰年正月十八日酉时殁于同治癸亥年六月廿二日戌时葬于金星顶下竹峦亥山巳向生子一泽堂女一适秦",
+        "father":  "幼房28-12",
+        "children": ["幼房30-13"]
+     },
+    "幼房29-12": {
+        "name": "馥兰",
+        "details": "庭英之子│谱名命菊生于乾隆癸未年九月十八日寅时殁于甲寅年八月廿八日辰时葬于郭坞嘴向南配刘氏生于乾隆己卯年三月初一日酉时殁于道光丁亥年十一月廿四日午时与夫葬同处同向刘氏节孝详载邑志生子二秀堂驾堂女一适崔",
+        "father":  "幼房28-13",
+        "children": ["幼房30-14", "幼房30-15"]
+     },
+    "幼房29-13": {
+        "name": "并茂",
+        "details": "斯育长子│谱名命萱生于乾隆戊戌年二月廿九日巳时葬于门山向北",
+        "father":  "幼房28-15",
+        "children": []
+     },
+    "幼房29-14": {
+        "name": "怀茂",
+        "details": "斯育次子│谱名命椿生于乾隆乙巳年十二月初六日寅时殁于道光甲午年十一月十一日子时葬于门山向北配刘氏生于乾隆辛亥年四月初二日戌时葬于门山后裔德宏",
+        "father":  "幼房28-15",
+        "children": []
+     },
+    "幼房29-15": {
+        "name": "怀芳",
+        "details": "斯育三子│谱名命桃生于乾隆癸丑年八月十五日戌时殁于道光癸卯年八月初十日巳时葬于门山辰戌向配傅氏生于乾隆壬子年三月十四日辰时殁于咸丰辛酉年六月廿三日未时葬于门山中凸向北生子一德广女一适殷",
+        "father":  "幼房28-15",
+        "children": ["幼房30-16"]
+     },
+    "幼房29-16": {
+        "name": "怀林",
+        "details": "斯育四子│谱名命桂生于嘉庆丁巳年九月初五日寅时殁于同治癸亥年八月三十日戌时葬于门山辰戌向配余氏生于嘉庆辛酉年十一月初四日卯时殁于道光乙巳年三月初四日巳时葬于梅神嘴向西生子一德宏女一适黄",
+        "father":  "幼房28-15",
+        "children": ["幼房30-17"]
+     },
+    "幼房29-17": {
+        "name": "怀秀",
+        "details": "斯育幼子│谱名命喜登仕郎生于嘉庆丁卯年正月二十日丑时葬于门山屋场坵辰戌向配刘氏生于嘉庆壬申年二月十四日酉时殁于咸丰己未年十月初十日酉时葬于门山中凸向北生子一显扬",
+        "father":  "幼房28-15",
+        "children": ["幼房30-18"]
+     },
+    "幼房29-18": {
+        "name": "灿秘",
+        "details": "其禄长子│谱名命奇生于乾隆壬辰年十二月十八日辰时殁于嘉庆壬戌年十二月初四日午时葬于门山向南后裔锡朋",
+        "father":  "幼房28-16",
+        "children": []
+     },
+    "幼房29-19": {
+        "name": "灿华",
+        "details": "其禄次子│谱名命綵生于乾隆丙申年十一月初八日亥时殁于咸丰己未年十二月初七日未时葬于坟峦乾巽向配郭氏生于乾隆乙巳年六月初一日午时殁于道光辛巳年九月十三日午时葬于魏婆坟向东生子二锡朋锡九",
+        "father":  "幼房28-16",
+        "children": ["幼房30-19", "幼房30-20"]
+     },
+    "幼房29-20": {
+        "name": "灿林",
+        "details": "其禄幼子│谱名命绣生于乾隆庚戌年六月十四日寅时殁于道光壬午年九月十五日辰时葬于门山向北",
+        "father":  "幼房28-16",
+        "children": []
+     },
+    "幼房29-21": {
+        "name": "怀义",
+        "details": "焕斗长子│谱名命功生于乾隆甲寅年十一月廿九日寅时殁于同治癸亥年六月十一日未时葬于门山向北配刘氏生于嘉庆戊午年五月初六日辰时殁于道光戊申年八月十一日辰时葬于梅神嘴向西北女二长适吴幼适叶后裔锡朋",
+        "father":  "幼房28-17",
+        "children": []
+     },
+    "幼房29-22": {
+        "name": "怀终",
+        "details": "焕斗幼子│谱名命先生于嘉庆辛酉年六月十三日卯时殁于嘉庆庚辰年十月十三日午时葬于门山向西",
+        "father":  "幼房28-17",
+        "children": []
+     },
+    "幼房29-23": {
+        "name": "怀发",
+        "details": "焕章之子│谱名命度生于嘉庆甲子年三月廿二日子时殁于同治壬戌年九月十五日未时葬于门山中凸向北配陈氏生于嘉庆丁卯年十月廿九日戌时后裔显扬",
+        "father":  "幼房28-19",
+        "children": []
+     },
+    "幼房29-24": {
+        "name": "玉才",
+        "details": "兼善长子│谱名命绳生于乾隆己酉年十二月初三日未时殁于道光壬寅年六月初十日巳时葬于门山配刘氏与夫同庚八月廿九日未时殁于与夫同庚八月初四日辰时葬于与夫及子合墓生子一凤堦女一适叶",
+        "father":  "幼房28-22",
+        "children": ["幼房30-21"]
+     },
+    "幼房29-25": {
+        "name": "玉典",
+        "details": "兼善幼子│谱名命凖登仕郎生于嘉庆戊午年八月十七日亥时殁于同治壬申年六月廿一日未时葬于门山大坞午山子向配刘氏生于嘉庆辛酉年正月十二日亥时殁于光绪戊寅年九月十七日卯时葬于门山中凸丁山癸向生子一升吾女二长适吴幼适夏",
+        "father":  "幼房28-22",
+        "children": ["幼房30-22"]
+     },
+    "幼房29-26": {
+        "name": "怀高",
+        "details": "声扬长子│谱名命方生于乾隆丙午年六月廿九日寅时殁于道光癸巳年十一月十六日巳时葬于门山向北后裔德隆",
+        "father":  "幼房28-23",
+        "children": []
+     },
+    "幼房29-27": {
+        "name": "怀泰",
+        "details": "声扬次子│谱名命力生于乾隆戊申年十月廿九日子时葬于彭泽马当后裔德隆",
+        "father":  "幼房28-23",
+        "children": []
+     },
+    "幼房29-28": {
+        "name": "邦采",
+        "details": "声扬幼子│谱名命工生于嘉庆壬戌年六月初八日未时殁于道光庚子年三月初十日巳时葬于门山魏婆坟向东配张氏生于嘉庆丙子年六月初八日巳时生子一德隆",
+        "father":  "幼房28-23",
+        "children": ["幼房30-23"]
+     },
+    "幼房29-29": {
+        "name": "协采",
+        "details": "扬献之子│谱名命适生于嘉庆庚申年六月廿五日辰时葬于彭泽马当配孙氏后裔德隆",
+        "father":  "幼房28-24",
+        "children": []
+     },
+    "幼房29-30": {
+        "name": "晓林",
+        "details": "扬进长子│谱名命宴生于乾隆壬子年三月廿六日寅时殁于嘉庆戊寅年四月初六日辰时葬于门山向北配陈氏后裔德欣",
+        "father":  "幼房28-25",
+        "children": []
+     },
+    "幼房29-31": {
+        "name": "华彩",
+        "details": "扬进幼子│谱名命池生于嘉庆丁卯年五月廿二日丑时殁于道光庚戌年三月十六日寅时葬于门山向西配张氏生于嘉庆壬申年四月二十日亥时殁于光绪乙未年八月廿一日午时葬于门山大坞丁癸兼子午向生子一德欣女一适程",
+        "father":  "幼房28-25",
+        "children": ["幼房30-24"]
+     },
+    "幼房29-32": {
+        "name": "与云",
+        "details": "勅常之子│谱名命讚生于乾隆乙巳年十一月十五日丑时殁于道光壬辰年又九月十四日亥时葬于门山向西配周氏生于乾隆己酉年十二月初二日寅时葬于彭泽马当生子一洪举女二长适沈幼适刘",
+        "father":  "幼房28-30",
+        "children": ["幼房30-25"]
+     },
+    "幼房29-33": {
+        "name": "兆泰",
+        "details": "兰瑞之子│谱名命徴生于嘉庆甲子年六月十五日申时殁于咸丰壬子年八月初三日辰时葬于门山中凸配吴氏生于嘉庆壬戌年十一月二十日亥时殁于道光壬寅年八月十五日午时与夫合墓生子一锡宏女一适吴",
+        "father":  "幼房28-35",
+        "children": ["幼房30-26"]
+     },
+    "幼房29-34": {
+        "name": "显庸",
+        "details": "斯赞之子│谱名命中嘉庆廿一年乡试武举人马射 6 矢中 3 步射 6 矢中 4 策论慎固封守生于乾隆庚戌年六月廿七日寅时殁于道光乙巳年三月初八日巳时葬于门山中凸配蔡氏生于乾隆己酉年二月十四日巳时殁于同治癸亥年九月初四日丑时葬于门山大凸生子三朝选朝珍朝拔",
+        "father":  "幼房28-38",
+        "children": ["幼房30-27", "幼房30-28", "幼房30-29"]
+     },
+    "幼房29-35": {
+        "name": "应奇",
+        "details": "思进长子│谱名命诜生于乾隆癸卯年十二月初一日丑时殁于壬戌年二月廿五日葬于门山向西南配柯氏",
+        "father":  "幼房28-39",
+        "children": []
+     },
+    "幼房29-36": {
+        "name": "玉达",
+        "details": "思进次子│谱名命焕生于乾隆癸丑年正月十一日辰时殁于嘉庆庚午年葬于门山配刘氏",
+        "father":  "幼房28-39",
+        "children": []
+     },
+    "幼房29-37": {
+        "name": "玉轩",
+        "details": "思进幼子│谱名命锡生于嘉庆己未年十一月十九日寅时殁于咸丰丙辰年九月廿二日戌时葬于坟峦配陈氏生于嘉庆癸亥年九月十二日戌时殁于光绪壬午年十二月十二日酉时葬于坟峦戌辰向生子一朝鼎女三长次适李幼适董",
+        "father":  "幼房28-39",
+        "children": ["幼房30-30"]
+     },
+    "幼房29-38": {
+        "name": "开泰",
+        "details": "斯茂之子│谱名命举生于乾隆甲寅年十月十七日辰时殁于同治癸亥年二月初九日午时葬于叶家山向西配李氏生于嘉庆丁巳年十一月三十日午时生子一锡爵女一适梅",
+        "father":  "幼房28-40",
+        "children": ["幼房30-31"]
+     },
+    "幼房29-39": {
+        "name": "玉春",
+        "details": "步光长子│谱名命佑生于乾隆辛亥年六月初五日巳时殁于道光壬辰年十一月十七日戌时葬于门山向北配张氏生于乾隆庚戌年十二月初九日酉时殁于嘉庆甲戌年二月初五日辰时葬于门山向北女一适曹继姚氏生于嘉庆丁巳年二月初一日戌时殁于光绪庚辰年五月初九日巳时葬于叶家山向西南生子一锡璋",
+        "father":  "幼房28-41",
+        "children": ["幼房30-32"]
+     },
+    "幼房29-40": {
+        "name": "玉荣",
+        "details": "步光幼子│谱名命享生于乾隆乙卯年四月初五日酉时殁于嘉庆丙子年二月初四日寅时葬于门山向北配刘氏生于嘉庆戊午年正月初六日亥时生子一锡景",
+        "father":  "幼房28-41",
+        "children": ["幼房30-33"]
+     },
+    "幼房29-41": {
+        "name": "言志",
+        "details": "秉原之子│谱名命时生于乾隆己丑年七月十三日午时殁于嘉庆乙未年十一月廿一日未时葬于门山向西",
+        "father":  "幼房28-42",
+        "children": []
+     },
+    "幼房29-42": {
+        "name": "惟有",
+        "details": "宜则长子│谱名命昆生于乾隆辛卯年八月初六日未时殁于道光壬辰年七月十四日辰时葬于门山向西配詹氏生于乾隆乙未年八月廿三日酉时殁于道光癸巳年八月初十日午时与夫葬同处同向西",
+        "father":  "幼房28-44",
+        "children": []
+     },
+    "幼房29-43": {
+        "name": "惟廷",
+        "details": "宜则幼子│谱名命土遂生于乾隆己亥年九月廿八日亥时殁于道光丁酉年正月廿九日戌时葬于门山向西配张氏生于嘉庆丁巳年九月初五日巳时",
+        "father":  "幼房28-44",
+        "children": []
+     },
+    "幼房29-44": {
+        "name": "以万",
+        "details": "善长之子│谱名命校生于乾隆戊戌年三月十七日寅时殁于道光乙未年七月初六日戌时葬于西洋桥边山配生子一隆顺",
+        "father":  "幼房28-45",
+        "children": ["幼房30-34"]
+     },
+    "幼房29-45": {
+        "name": "振铎",
+        "details": "建猷长子│谱名命仍生于嘉庆庚申年十月廿二日申时殁于同治癸亥年七月初二日酉时葬于门山丁癸向配吕氏生于嘉庆戊辰年六月廿九日巳时殁于同治癸亥年七月十八日卯时葬于门山午子兼丁癸三分生子二隆海隆发女二长适郭幼适左",
+        "father":  "幼房28-47",
+        "children": ["幼房30-35", "幼房30-36"]
+     },
+    "幼房29-46": {
+        "name": "道济",
+        "details": "建猷幼子│谱名命义生于嘉庆壬戌年十一月廿八日戌时殁于同治乙丑年二月十六日申时葬于门山丁癸向配陈氏生于嘉庆甲戌年七月廿八日卯时殁于道光壬寅年三月初十日丑时葬于孙北窗大地门山北麓风水宝地坐西向东辛山乙向又周氏生于嘉庆庚午年七月初一日寅时殁于光绪乙亥年十二月初一日戌时葬于梅神嘴向西生子三凌茂陈氏生凌汉凌华周氏生",
+        "father":  "幼房28-47",
+        "children": ["幼房30-39", "幼房30-37", "幼房30-38"]
+     },
+    "幼房30-1": {
+        "name": "良佐",
+        "details": "茂林长子│谱名为夏生于道光癸未年五月初二日辰时殁于同治甲戌年十二月廿三日未时与太平军之战葬于门山中凸坐南向北配杨氏生于道光癸未年十一月初一日丑时与夫葬同处生子三献中献瑞满福女二长适吴幼适刘",
+        "father":  "幼房29-5",
+        "children": []
+     },
+    "幼房30-2": {
+        "name": "良策",
+        "details": "茂林幼子│谱名为秋生于道光甲申年十月廿四日巳时殁于同治癸亥年七月初五日午时葬于门山中凸向北与母合墓配柳氏生于道光丙戌年三月十七日丑时殁于同治壬申年十二月二十日亥时生女二长适宛幼适柯后裔献瑞",
+        "father":  "幼房29-5",
+        "children": []
+     },
+    "幼房30-3": {
+        "name": "硕卿",
+        "details": "瑞祥长子│谱名为栋业儒例赠文林郎号曙楼生于道光癸未年十一月廿一日丑时殁于道光癸卯年四月廿九日亥时葬于门山中凸坐南向北配张氏生于道光甲申年六月初三日巳时殁于光绪己亥年三月初二日未时葬于坟峦戌辰向母年十九即失所天苦节自贞抚叔成纺绩课读守制待旌具载县志后裔子坊子赓",
+        "father":  "幼房29-7",
+        "children": []
+     },
+    "幼房30-4": {
+        "name": "寿卿",
+        "details": "瑞祥幼子│谱名为樑九品职官名道煜号曦楼生于道光壬辰年七月二十日未时殁于光绪辛巳年正月廿六日卯时葬于坟峦嫡母吴氏墓侧戌辰向配吴氏生于道光己丑年二月十七日寅时殁于光绪辛卯年二月十二日戌时葬于金星顶亥巳兼壬丙向生子二子坊子赓女二长适周幼适吴",
+        "father":  "幼房29-7",
+        "children": []
+     },
+    "幼房30-5": {
+        "name": "锦纶",
+        "details": "兆祥长子│谱名为焕生于乾隆癸丑年十二月初八日戌时殁于同治乙丑年七月初五日巳时葬于金星顶下竹峦亥巳向配袁氏生于乾隆乙卯年十月初一日未时殁于同治癸亥年七月十四日丑时与夫合墓生子三序镛序功序德女三长次适李幼适潘",
+        "father":  "幼房29-8",
+        "children": []
+     },
+    "幼房30-6": {
+        "name": "锦蔚",
+        "details": "兆祥幼子│谱名为炳登仕郎生于嘉庆丁巳年八月十二日卯时殁于同治己巳年九月廿四日戌时葬于坟峦戌辰向配崔氏生于嘉庆己未年七月廿八日巳时殁于道光乙酉年四月初十日亥时葬于郭坞嘴向西继汪氏生于嘉庆壬戌年十二月十六日亥时殁于光绪庚辰年二月初一日戌时葬于门山涧坎上甲山庚向生子一序典崔氏出",
+        "father":  "幼房29-8",
+        "children": []
+     },
+    "幼房30-7": {
+        "name": "锦台",
+        "details": "南选长子│谱名为谊生于乾隆乙卯年十一月十八日亥时殁于道光庚寅年六月廿四日酉时葬于郭坞嘴向西南配吴氏生于嘉庆丙辰年九月十一日巳时殁于光绪癸未年十一月廿四日戌时葬于坟峦戌辰向以北生女一适葛后裔序宾",
+        "father":  "幼房29-9",
+        "children": []
+     },
+    "幼房30-8": {
+        "name": "锦湘",
+        "details": "南选次子│谱名为佐生于嘉庆戊午年十一月廿二日未时殁于同治甲子年九月廿九日辰时葬于星顶下竹峦亥山巳向配潘氏生于嘉庆己未年四月十四日辰时殁于同治癸亥年九月初三日午时与夫合墓生子一序宾女三长适沈次适梅幼适张",
+        "father":  "幼房29-9",
+        "children": []
+     },
+    "幼房30-9": {
+        "name": "锦憅",
+        "details": "南选幼子│谱名为善生于嘉庆丙寅年九月初四日亥时殁于道光乙未年八月初七日辰时葬于门山向北配李氏生于嘉庆甲戌年七月三十日丑时殁于光绪庚寅年九月十三日未时葬于金星顶亥山巳向",
+        "father":  "幼房29-9",
+        "children": []
+     },
+    "幼房30-10": {
+        "name": "锦城",
+        "details": "日新长子│谱名为仁从九品职号翰臣官名道潘生于嘉庆甲戌年四月初十日辰时殁于光绪己丑年三月初一日巳时葬于金星顶竹峦窠亥巳兼壬丙向配殷氏生于嘉庆癸酉年九月十七日丑时殁于光绪辛卯年十一月初一日申时与夫葬同处同向生子一钟汉女二长适葛幼适段后裔序宾",
+        "father":  "幼房29-10",
+        "children": []
+     },
+    "幼房30-11": {
+        "name": "春卿",
+        "details": "日新次子│谱名为辅附贡生号錬侬官名道平生于嘉庆戊寅年二月廿一日亥时殁于光绪丁亥年十一月初八日巳时葬于周郭屋后屈家山坐南向北寅申兼艮坤向山与刘姓人各半立有合同一纸配杨氏生于嘉庆庚辰年九月廿七日亥时殁于光绪戊申年十月十三日卯时与夫合墓生子二钟岱仲秀女三长适董次适戢幼适周",
+        "father":  "幼房29-10",
+        "children": []
+     },
+    "幼房30-12": {
+        "name": "宝卿",
+        "details": "日新幼子│谱名为彦生于道光辛卯年正月初七日寅时殁于同治辛未年十月廿五日寅时葬于金星顶下竹峦窠亥山巳向配刘氏生于道光庚寅年四月廿二日亥时殁于同治乙丑年四月初十日申时葬于门山中凸向北生子三钟嶽钟彝钟淮后裔万全",
+        "father":  "幼房29-10",
+        "children": []
+     },
+    "幼房30-13": {
+        "name": "泽堂",
+        "details": "映辉之子│谱名为信生于嘉庆甲子年九月初十日未时殁于道光壬辰年二月十二日寅时葬于郭坞嘴向南配刘氏后裔世杰付遗屋场上边系杨塘念田三升",
+        "father":  "幼房29-11",
+        "children": []
+     },
+    "幼房30-14": {
+        "name": "秀堂",
+        "details": "馥兰长子│谱名为敬例赠登仕郎生于乾隆壬寅年二月十五日寅时殁于咸丰辛亥年七月十一日巳时葬于门山中凸配郑氏生于乾隆乙巳年十一月初一日辰时殁于咸丰戊午年三月十七日午时葬于梅神嘴向西生子四世哲世球世杰世辅女一适潘",
+        "father":  "幼房29-12",
+        "children": []
+     },
+    "幼房30-15": {
+        "name": "驾堂",
+        "details": "馥兰幼子│谱名为煦生于乾隆甲辰年十二月初三日子时殁于道光壬辰年十一月初四日子时葬于门山中凸向北配柳氏生于乾隆丁未年五月十三日子时殁于咸丰庚申年九月初五日亥时葬于坟峦亥山巳向生子二世懋世享女二长适蔡幼适沈",
+        "father":  "幼房29-12",
+        "children": []
+     },
+    "幼房30-16": {
+        "name": "德广",
+        "details": "怀芳之子│谱名为苏生于道光庚子年四月廿三日子时葬于门山屋场坵向西配汪氏生于道光辛丑年七月十六日巳时殁于同治乙丑年六月廿六日丑时葬于门山魏婆坟向东后裔承谟",
+        "father":  "幼房29-15",
+        "children": []
+     },
+    "幼房30-17": {
+        "name": "德宏",
+        "details": "怀林之子│谱名为著生于道光丙申年二月初十日戌时殁于光绪庚子年八月初三日寅时葬于屋场坵坐东向西配倪氏生于道光乙未年六月初八日寅时殁于同治甲子年十二月初七日子时葬于门山屋场坵辰戌向继夏氏生于道光丁未年十一月廿七日辰时殁于光绪辛丑年八月廿三日戌时与夫合墓生子五承先承谟承宾春保金保倪氏出女三长适潘倪氏出次适柯幼适余夏氏出",
+        "father":  "幼房29-16",
+        "children": []
+     },
+    "幼房30-18": {
+        "name": "显扬",
+        "details": "怀秀之子│谱名为明生于道光乙未年八月廿五日未时殁于道光丁未年十月初八日寅时葬于门山后裔春保",
+        "father":  "幼房29-17",
+        "children": []
+     },
+    "幼房30-19": {
+        "name": "锡朋",
+        "details": "灿华长子│谱名为学生于嘉庆丁丑年六月初九日辰时葬于门山大埚向北配左氏生于嘉庆戊寅年九月十四日午时殁于同治甲子年七月十二日巳时葬于门山魏婆坟向东生子一稠幼年夭折女二长适董幼适汪后裔金保",
+        "father":  "幼房29-19",
+        "children": []
+     },
+    "幼房30-20": {
+        "name": "锡九",
+        "details": "灿华幼子│谱名为勉生于嘉庆己卯年九月十五日辰时殁于咸丰庚申年八月初八日午时葬于门山坐东向西配李氏",
+        "father":  "幼房29-19",
+        "children": []
+     },
+    "幼房30-21": {
+        "name": "凤堦",
+        "details": "玉才之子│谱名为南生于嘉庆庚午年十月十九日戌时殁于道光庚戌年八月二十日戌时葬于门山与双亲合墓配曹氏后裔宗傅",
+        "father":  "幼房29-24",
+        "children": []
+     },
+    "幼房30-22": {
+        "name": "升吾",
+        "details": "玉典之子│谱名为西生于道光庚子年四月十六日丑时殁于同治癸亥年六月廿一日午时葬于门山大坞午山子向配周氏生于道光戊戌年二月三十日辰时殁于光绪乙未年九月初二日卯时葬于门山大埚子山午向生子一宗傅",
+        "father":  "幼房29-25",
+        "children": []
+     },
+    "幼房30-23": {
+        "name": "德隆",
+        "details": "邦采之子│谱名为徽生于道光丁酉年五月初七日巳时殁于宣统元年正月初十日午时葬于门山大坞丁癸兼午子向配夏氏生于道光丁未年十一月初六日戌时生子三承发承训义发女二长适陶幼适蔡",
+        "father":  "幼房29-28",
+        "children": []
+     },
+    "幼房30-24": {
+        "name": "德欣",
+        "details": "华彩之子│谱名为冈生于道光乙巳年四月十九日亥时配周氏后裔承训",
+        "father":  "幼房29-31",
+        "children": []
+     },
+    "幼房30-25": {
+        "name": "洪举",
+        "details": "与云之子│谱名为泰生于嘉庆乙亥年十二月廿九日丑时殁于同治甲子年正月廿七日寅时葬于叶家山张姓门山嘴坐东向西后裔端喜",
+        "father":  "幼房29-32",
+        "children": []
+     },
+    "幼房30-26": {
+        "name": "锡宏",
+        "details": "兆泰之子│谱名为屏生于道光乙未年十一月初一日卯时殁于光绪七年九月初八日戌时葬于叶家山向南配詹氏生于道光戊戌年三月十五日巳时生子一际尧后裔汝昌",
+        "father":  "幼房29-33",
+        "children": []
+     },
+    "幼房30-27": {
+        "name": "朝选",
+        "details": "显庸长子│谱名为邦生于嘉庆壬申年四月初二日寅时殁于同治癸亥年七月初六日未时葬于门山中凸配柯氏生于嘉庆乙亥年七月初九日子时殁于光绪丁丑年九月廿四日巳时葬于梅神嘴后坐东北向西南生女一适李嗣子钟淮",
+        "father":  "幼房29-34",
+        "children": []
+     },
+    "幼房30-28": {
+        "name": "朝珍",
+        "details": "显庸次子│谱名为远生于嘉庆戊寅年二月初八日亥时殁于光绪庚寅年十月初六日亥时葬于叶家山甲庚兼卯酉向配李氏生于道光癸未年四月初十日未时殁于光绪庚寅年九月廿五日丑时与夫合墓",
+        "father":  "幼房29-34",
+        "children": []
+     },
+    "幼房30-29": {
+        "name": "朝拔",
+        "details": "显庸幼子│谱名为芳生于道光戊子年十月初十日申时殁于同治辛未年十二月廿四日申时葬于门山大坞向北配邵氏生于道光丙申年九月廿五日巳时殁于光绪乙未年九月十七日寅时葬于叶家山甲庚兼卯酉向生子一际善",
+        "father":  "幼房29-34",
+        "children": []
+     },
+    "幼房30-30": {
+        "name": "朝鼎",
+        "details": "玉轩之子│谱名为国生于嘉庆甲戌年十二月廿六日巳时殁于光绪辛巳年又七月初八日午时葬于魏婆坟向东配蔡氏生于嘉庆丙子年四月廿五日未时殁于同治癸亥年六月廿六日丑时葬于门山中凸生子一际盛",
+        "father":  "幼房29-37",
+        "children": []
+     },
+    "幼房30-31": {
+        "name": "锡爵",
+        "details": "开泰之子│谱名为坦生于嘉庆庚辰年二月初七日未时殁于道光戊申年十二月初三日午时葬于梅神嘴南边向西后裔汝昌",
+        "father":  "幼房29-38",
+        "children": []
+     },
+    "幼房30-32": {
+        "name": "锡璋",
+        "details": "玉春之子│谱名为樑恩贡生生于道光癸巳年七月初八日戌时殁于光绪戊子年五月廿五日卯时葬于魏婆坟坐西向东配宛氏生于道光庚寅年十月廿一日戌时殁于同治癸亥年七月十一日未时葬于门山中凸又沈氏生于道光乙巳年九月十三日戌时殁于光绪七年九月初一日子时葬于门山大坞向北生子三汝梅汝芬汝昌女二皆适吴",
+        "father":  "幼房29-39",
+        "children": []
+     },
+    "幼房30-33": {
+        "name": "锡景",
+        "details": "玉荣之子│谱名为贞生于嘉庆丙子年八月廿八日未时殁于光绪戊子年九月初四日卯时葬于叶家山向西南配朱氏生于嘉庆癸酉年九月十四日丑时殁于光绪戊子年五月廿五日未时葬于门山大坞向北生女一适梅后裔汝芬",
+        "father":  "幼房29-40",
+        "children": []
+     },
+    "幼房30-34": {
+        "name": "隆顺",
+        "details": "以万之子│谱名为纟巳生于道光甲辰年六月初六日午时殁于光绪丁亥年二月十二日亥时葬于门山向北后裔满福",
+        "father":  "幼房29-44",
+        "children": []
+     },
+    "幼房30-35": {
+        "name": "隆海",
+        "details": "振铎长子│谱名为典咸丰五年随曾国藩克复武昌保奏六品衔生于道光己丑年十二月初二日寅时葬于门山向北配艾氏生于道光辛卯年二月初十日辰时殁于同治癸亥年二月初一日巳时葬于浮梁薛家山后裔满福",
+        "father":  "幼房29-45",
+        "children": []
+     },
+    "幼房30-36": {
+        "name": "隆发",
+        "details": "振铎幼子│谱名为纲生于道光己亥年六月初七日巳时葬于梅神嘴向西后裔满福",
+        "father":  "幼房29-45",
+        "children": []
+     },
+    "幼房30-37": {
+        "name": "凌汉",
+        "details": "道济长子│谱名为章生于道光乙未年九月十七日辰时殁于咸丰己未年八月十六日寅时随湘军阵亡葬于翟家山下",
+        "father":  "幼房29-46",
+        "children": []
+     },
+    "幼房30-38": {
+        "name": "凌华",
+        "details": "道济次子│谱名为守生于道光庚子年八月初十日寅时葬于梅神嘴坐东向西后裔满福",
+        "father":  "幼房29-46",
+        "children": []
+     },
+    "幼房30-39": {
+        "name": "凌茂",
+        "details": "道济幼子│谱名为本生于道光甲辰年六月廿七日戌时同治元年投湘军后定居湖南湘潭殁于光绪丁未年二月初八日未时葬于门山坐南向北配余氏生于咸丰辛亥年正月廿三日未时殁于光绪乙亥年十月初一日戌时葬于县城外黄土岭向东后裔满福",
+        "father":  "幼房29-46",
+        "children": []
+     },
+    "前房31-1": {
+        "name": "世哲",
+        "details": "秀堂长子│谱名孝忠业儒生于嘉庆丙寅年正月初五日卯时殁殁于同治丙寅年五月十六日巳时葬于坟峦戌向配杨氏生于嘉庆乙丑年十月三十日丑时殁殁于同治己巳年十月初一日午时葬于门山中凸向北生子二家泽润泽女一适潘",
+        "father":  "幼房30-14",
+        "children": ["前房32-1", "前房32-2"]
+     },
+    "前房31-2": {
+        "name": "世球",
+        "details": "秀堂次子│谱名孝志生于嘉庆壬申年正月初五日丑时殁殁于光绪乙亥年十一月十八日寅时葬于金星顶下竹峦窝亥巳兼壬丙向配曹氏生于嘉庆癸酉年七月初十日巳时殁殁于同治癸亥年七月初四日巳时与夫葬同处生子三家裕家潘家翰女二长适杨幼适柳",
+        "father":  "幼房30-14",
+        "children": ["前房32-3", "前房32-4", "前房32-5"]
+     },
+    "前房31-3": {
+        "name": "世杰",
+        "details": "秀堂三子│谱名孝先生于嘉庆己卯年二月三十日卯时殁殁于同治壬申年十一月十九日子时葬于金星顶下竹峦兼壬丙向配赵氏生于嘉庆丙子年七月十二日申时殁殁于光绪辛巳年十一月十三日亥时葬于坟峦辰戌向生子五恩泽梦亨肇亨正亨炳亨",
+        "father":  "幼房30-14",
+        "children": ["前房32-6", "前房32-7", "前房32-8", "前房32-9", "前房32-10"]
+     },
+    "前房31-4": {
+        "name": "世辅",
+        "details": "秀堂四子│谱名孝思生于道光辛巳年十月十七日戌时殁殁于光绪戊寅年四月廿九日戌时葬于高塘地亥巳向配姚氏生于道光壬午年十二月初八日卯时殁殁于同治己巳年五月十四日巳时葬于门山中凸向北生子二家仁家廉女二长适张幼适姚",
+        "father":  "幼房30-14",
+        "children": ["前房32-11", "前房32-12"]
+     },
+    "前房31-5": {
+        "name": "世纯",
+        "details": "秀堂幼子│谱名孝谐生于道光庚寅年又四月十九日寅时殁殁于光绪癸巳年十一月初二日午时葬于门山坐南向北配李氏与夫同庚十月廿八日戌时殁殁于同治癸亥年八月十九日巳时葬于门山中凸向北生子一家骏女一适余",
+        "father":  "幼房30-14",
+        "children": ["前房32-13"]
+     },
+    "前房31-6": {
+        "name": "世懋",
+        "details": "驾堂长子│谱名孝优修职郎官名俊生于嘉庆己巳年三月廿六日丑时殁殁于光绪乙亥年正月廿七日丑时葬于坟峦亥山巳向配陈氏与夫同庚九月廿五日子时殁殁于同治癸亥年七月初五日亥时葬于门山中凸坤山艮向生子二家谟家齐",
+        "father":  "幼房30-15",
+        "children": ["前房32-14", "前房32-15"]
+     },
+    "前房31-7": {
+        "name": "世享",
+        "details": "驾堂幼子│谱名孝灼登仕郎生于道光戊子年八月初六日寅时殁殁于光绪辛丑年八月廿二日辰时葬于坟峦戌辰兼乾巽向配柳氏生于道光己丑年正月初六日辰时殁殁于同治癸亥年八月十五日巳时葬于门山中凸向北生子二家声家让女一适吴",
+        "father":  "幼房30-15",
+        "children": ["前房32-16", "前房32-17"]
+     },
+    "前房32-1": {
+        "name": "家泽",
+        "details": "世哲长子│谱名长清太学生官名龄号秋江生于道光己丑年七月十八日寅时殁殁于光绪壬午年三月廿九日未时葬于门山中凸向北碑配傅氏生于道光庚寅年六月廿八日寅时殁殁于咸丰戊午年五月初八日午时葬于梅神嘴向西生子一若川女一适黄",
+        "father":  "前房31-1",
+        "children": ["前房33-1"]
+     },
+    "前房32-2": {
+        "name": "润泽",
+        "details": "世哲幼子│谱名长沣文林郎生于道光甲午年八月初七日午时殁殁于光绪丁未年十一月十三日未时葬于坟峦戌辰向配杨氏生于道光丙申年七月十八日辰时殁殁于同治乙丑年九月十二日丑时葬于门山中凸向北又郑氏生于道光己亥年七月廿三日辰时殁殁于光绪壬辰年三月初九日寅时葬于门山中凸向北生子二若美若林",
+        "father":  "前房31-1",
+        "children": ["前房33-2", "前房33-3"]
+     },
+    "前房32-3": {
+        "name": "家裕",
+        "details": "世球长子│谱名长明生于道光丙申年十一月二十日未时殁殁于光绪甲辰年三月初五日戌时葬于金星顶亥巳兼壬丙向配曹氏生于道光戊戌年正月初四日巳时殁殁于同治癸亥年七月初二日未时葬于门山中凸继吴氏生于道光丙午年十月二十日巳时殁殁于光绪壬辰年九月初五日午时葬于金星顶下亥巳兼壬丙向生子三思恭思宽思亮女一适曹",
+        "father":  "前房31-2",
+        "children": ["前房33-4", "前房33-5", "前房33-6"]
+     },
+    "前房32-4": {
+        "name": "家潘",
+        "details": "世球次子│谱名长顺生于道光丙午年又五月初五日午时殁殁于光绪戊戌年正月十二日未时葬于金星顶竹峦窠亥巳兼壬丙向配张氏生于道光己酉年十一月十八日丑时殁殁未载与夫葬同处生子二思明思勤",
+        "father":  "前房31-2",
+        "children": ["前房33-7", "前房33-8"]
+     },
+    "前房32-5": {
+        "name": "家翰",
+        "details": "世球幼子│谱名长恂生于咸丰丁巳年六月初六日卯时殁殁于光绪甲午年七月初八日巳时葬于门山中凸向北配唐氏生于咸丰丙辰年六月初六日卯时殁殁于民国十年十一月初三日巳时葬于坟峦金星顶亥巳向生子一思荣",
+        "father":  "前房31-2",
+        "children": ["前房33-9"]
+     },
+    "前房32-6": {
+        "name": "恩泽",
+        "details": "世杰长子│谱名长沮生于道光己亥年八月十三日巳时殁殁于光绪辛卯年九月廿三日巳时葬于门山向西配张氏生于道光丁酉年七月初一日酉时殁殁于咸丰庚申年十一月十三日亥时葬于金星顶竹峦窠亥巳兼壬丙向",
+        "father":  "前房31-3",
+        "children": []
+     },
+    "前房32-7": {
+        "name": "梦亨",
+        "details": "世杰次子│谱名长沾生于道光辛丑年十月初四日巳时殁殁于光绪乙未年二月初六日戌时葬于金星顶下亥巳向配刘氏生于道光甲辰年五月十六日亥时殁殁于民国己未年八月初三日未时葬于门山中凸坐南向北生子三绚煌绚斗绚彩女一适宛",
+        "father":  "前房31-3",
+        "children": ["前房33-10", "前房33-11", "前房33-12"]
+     },
+    "前房32-8": {
+        "name": "肇亨",
+        "details": "世杰三子│谱名长泇生于道光甲辰年十月廿九日卯时殁殁于光绪己丑年二月二十日卯时葬于金星顶下亥巳兼壬丙向配葛氏生于道光乙巳年正月十九日亥时殁殁于民国四年九月廿一日子时葬于门山中凸向北女三长适汪次适葛幼适梅",
+        "father":  "前房31-3",
+        "children": []
+     },
+    "前房32-9": {
+        "name": "正亨",
+        "details": "世杰四子│谱名长泗生于道光庚戌年三月十五日亥时殁殁于光绪癸巳年正月初四日未时葬于门山向西北",
+        "father":  "前房31-3",
+        "children": []
+     },
+    "前房32-10": {
+        "name": "炳亨",
+        "details": "世杰幼子│谱名长泠邑廪生学名肇基号厥初生于咸丰壬子年十一月初五日卯时殁殁于光绪乙巳年三月廿八日卯时葬于金星顶下竹峦窠亥巳兼壬丙向配李氏生于咸丰戊午年十一月廿五日巳时殁殁于光绪丁酉年正月廿一日戌时与夫葬同处同向",
+        "father":  "前房31-3",
+        "children": []
+     },
+    "前房32-11": {
+        "name": "家仁",
+        "details": "世辅长子│谱名长焜生于咸丰壬子年三月十五日午时殁殁于民国十八年二月初二日戌时葬于门山坤艮兼未丑向配崔氏生于咸丰辛亥年十月十六日子时殁殁于民国十四年七月十一日亥时葬于门山未山丑向生女一适吴",
+        "father":  "前房31-4",
+        "children": []
+     },
+    "前房32-12": {
+        "name": "家廉",
+        "details": "世辅幼子│谱名长然生于咸丰乙卯年十二月初一日巳时殁殁于光绪辛丑年三月初一日申时葬于门山向北配左氏生于同治庚午年九月初十日辰时殁殁于光绪辛丑年七月廿九日戌时与夫合墓",
+        "father":  "前房31-4",
+        "children": []
+     },
+    "前房32-13": {
+        "name": "家骏",
+        "details": "世纯之子│谱名长燧生于咸丰壬子年九月廿一日午时殁殁于宣统二年八月廿九日亥时葬于门山中凸癸山巳向配李氏生于咸丰甲寅年六月廿七日寅时殁殁于1934年9月11日戌时葬于门山中凸生子一思诚女一适孙",
+        "father":  "前房31-5",
+        "children": ["前房33-13"]
+     },
+    "前房32-14": {
+        "name": "家谟",
+        "details": "世懋长子│谱名长峻生于道光辛卯年正月廿四日寅时殁殁于光绪乙酉年十二月十八日辰时葬于门山午山子向配潘氏生于道光丙戌年十月廿六日申时殁殁于光绪庚辰年十月十五日巳时与夫葬同处向北生子二胜友胜才女一适张",
+        "father":  "前房31-6",
+        "children": ["前房33-14", "前房33-15"]
+     },
+    "前房32-15": {
+        "name": "家齐",
+        "details": "世懋幼子│谱名长嵩生于道光甲午年八月廿八日申时殁殁于光绪己亥年九月十八日子时葬于门山午山子向配陈氏生于道光癸巳年十月十九日子时殁殁于民国元年十二月初四辰时与夫葬同处同向生子一明德女三长适李次适潘幼适宛",
+        "father":  "前房31-6",
+        "children": ["前房33-16"]
+     },
+    "前房32-16": {
+        "name": "家声",
+        "details": "世享长子│谱名长晃生于道光庚戌年七月初九日辰时殁殁于光绪壬辰年七月十六日卯时葬于门山中凸向北配袁氏生于道光己酉年正月初十日戌时殁殁未载葬于坟峦生子三思聪思忠思义女一适潘",
+        "father":  "前房31-7",
+        "children": ["前房33-17", "前房33-18", "前房33-19"]
+     },
+    "前房32-17": {
+        "name": "家让",
+        "details": "世享幼子│谱名长昱生于咸丰丁巳年二月十七日巳时殁殁于光绪甲辰年七月初一日酉时葬于门山中凸向北配陶氏生于咸丰戊午年十月初四日戌时殁殁于民国廿九年十月十三日戌时葬于门山中凹向北生子二思敬思煌",
+        "father":  "前房31-7",
+        "children": ["前房33-20", "前房33-21"]
+     },
+    "前房33-1": {
+        "name": "若川",
+        "details": "家泽之子│谱名怀椿生于咸丰丁巳年八月廿八日寅时殁殁于光绪丙戌年八月十七日戌时葬于门山向北配沈氏生于咸丰辛酉年五月十八日午时殁殁葬未载女一适梅",
+        "father":  "前房32-1",
+        "children": []
+     },
+    "前房33-2": {
+        "name": "若美",
+        "details": "润泽长子│谱名怀棋生于同治癸亥年十月初十日酉时殁殁于光绪癸卯年十二月初十日辰时葬于门山中凸向北配陈氏生于同治甲子年十月廿七日巳时殁殁于光绪甲辰年六月廿五日巳时与夫葬同处生子一树槐",
+        "father":  "前房32-2",
+        "children": ["前房34-1"]
+     },
+    "前房33-3": {
+        "name": "若林",
+        "details": "润泽幼子│谱名怀株邑廪生学名铭新号德臣生于同治戊辰年五月十三日午时殁殁于民国十七年二月十七日申时葬于门山凸坤艮兼未酉向配熊氏生于同治丙寅年十一月初九日午时殁殁于民国十七年五月初一日酉时与夫合墓生子一植槐女二长适袁幼适吴",
+        "father":  "前房32-2",
+        "children": ["前房34-2"]
+     },
+    "前房33-4": {
+        "name": "思恭",
+        "details": "家裕长子│谱名怀柜生于同治乙丑年正月初七日戌时殁殁于民国壬子年正月初七日亥时葬于金星顶兼亥巳向",
+        "father":  "前房32-3",
+        "children": []
+     },
+    "前房33-5": {
+        "name": "思宽",
+        "details": "家裕次子│谱名怀椟生于光绪丁丑年六月廿五日丑时殁殁葬未载",
+        "father":  "前房32-3",
+        "children": []
+     },
+    "前房33-6": {
+        "name": "思亮",
+        "details": "家裕幼子│谱名怀权生于光绪丙戌年正月初七日亥时配张氏生于光绪壬辰年九月廿六日亥时生子三述元述吉三华",
+        "father":  "前房32-3",
+        "children": ["前房34-3", "前房34-4", "前房34-5"]
+     },
+    "前房33-7": {
+        "name": "思明",
+        "details": "家潘长子│谱名怀樱生于同治庚午年正月初五日亥时殁殁于光绪廿九年正月廿七日巳时葬于金星顶兼亥巳向配葛氏生于同治丁卯年十二月十六日亥时殁殁葬未载",
+        "father":  "前房32-4",
+        "children": []
+     },
+    "前房33-8": {
+        "name": "思勤",
+        "details": "家潘幼子│谱名怀桃生于光绪戊寅年正月廿八日酉时殁殁于1949年9月17日未时葬于门山中凹配唐氏生于光绪己卯年八月廿六日亥时殁殁于民国卅七年七月十六日未时与夫合墓生子三及钊水林和林女二长适胡幼适吴",
+        "father":  "前房32-4",
+        "children": ["前房34-6", "前房34-7", "前房34-8"]
+     },
+    "前房33-9": {
+        "name": "思荣",
+        "details": "家翰之子│谱名怀榉生于光绪庚辰年十一月廿五日亥时殁殁于民国卅四年葬于金星顶向南配刘氏生于光绪丁卯年四月十三日亥时殁殁于1958年10月12日辰时葬于金星顶向南生女二皆适吴",
+        "father":  "前房32-5",
+        "children": []
+     },
+    "前房33-10": {
+        "name": "绚煌",
+        "details": "梦亨长子│谱名怀楫生于同治乙丑年四月十七日巳时殁殁于民国己未年八月十九日巳时葬于中坟峦配蔡氏生于同治辛未年二月廿二日子时殁殁葬未载",
+        "father":  "前房32-7",
+        "children": []
+     },
+    "前房33-11": {
+        "name": "绚斗",
+        "details": "梦亨次子│谱名怀棬生于同治丁卯年六月十五日子时殁殁未载葬金星顶下配张氏生于同治戊辰年五月廿一日戌时殁殁于光绪戊申年六月十四日巳时葬于金星顶亥巳兼壬丙向生子二德新德昌",
+        "father":  "前房32-7",
+        "children": ["前房34-9", "前房34-10"]
+     },
+    "前房33-12": {
+        "name": "绚彩",
+        "details": "梦亨幼子│谱名怀桮生于光绪丁亥年三月十二日丑时殁殁未载葬于门山中凹配李氏生于光绪甲午年十月十二日亥时殁殁未载与夫葬同处生子三又新再新华苟",
+        "father":  "前房32-7",
+        "children": ["前房34-11", "前房34-12", "前房34-13"]
+     },
+    "前房33-13": {
+        "name": "思诚",
+        "details": "家骏之子│谱名怀梗生于光绪辛卯年九月廿七日辰时殁殁于民国廿三年十二月初八日子时葬于门山中凹配曹氏生于光绪丁酉年二月十六日寅时殁殁于1966年9月9日卯时葬于下坟峦生子二吉希述希女三长适周次适吴幼未载",
+        "father":  "前房32-13",
+        "children": ["前房34-14", "前房34-15"]
+     },
+    "前房33-14": {
+        "name": "胜友",
+        "details": "家谟长子│谱名怀坦生于咸丰丁巳年正月十七日亥时殁殁于民国十年十二月初十日巳时葬于门山坐南向北配黄氏生于咸丰戊午年十月初十日亥时殁殁未载葬于门山中凹生子一及盛",
+        "father":  "前房32-14",
+        "children": ["前房34-16"]
+     },
+    "前房33-15": {
+        "name": "胜才",
+        "details": "家谟幼子│谱名怀圯生于同治丙寅年七月初六日午时殁殁未载葬于门山中凹配刘氏生于同治乙丑年六月十一日亥时殁殁未载与夫葬同处生子四及松九龄及柏及青女一适张",
+        "father":  "前房32-14",
+        "children": ["前房34-17", "前房34-18", "前房34-19", "前房34-20"]
+     },
+    "前房33-16": {
+        "name": "明德",
+        "details": "家齐之子│谱名怀墀生于同治甲戌年十月十六日亥时殁殁葬未载配李氏生于同治壬申年四月廿一日辰时殁殁葬未载生子一及廉女一适吴",
+        "father":  "前房32-15",
+        "children": ["前房34-21"]
+     },
+    "前房33-17": {
+        "name": "思聪",
+        "details": "家声长子│谱名怀槤生于同治辛未年十月初一日辰时殁殁葬未载配李氏生于同治癸酉年九月十五日寅时殁殁于光绪丁未年八月初六日亥时葬于门山丁癸兼午子向继吴氏生于同治十二年九月廿二日午时殁殁葬未载生子一及泰女一适吴",
+        "father":  "前房32-16",
+        "children": ["前房34-22"]
+     },
+    "前房33-18": {
+        "name": "思忠",
+        "details": "家声次子│谱名怀李生于光绪辛巳年又七月初十日巳时殁殁于民国九年六月廿四日巳时葬于门山丁癸兼子午向配郑氏生于光绪十六年十一月初十日亥时殁殁于1967年8月11日戌时葬于坟峦中凸生子二及华及茂",
+        "father":  "前房32-16",
+        "children": ["前房34-23", "前房34-24"]
+     },
+    "前房33-19": {
+        "name": "思义",
+        "details": "家声幼子│谱名怀橙生于光绪乙酉年三月初十日酉时殁殁未载葬于门山配吴氏生于光绪丁亥年十月十七日亥时殁殁未载葬于门山生子一竹泉女二长未载幼适梅",
+        "father":  "前房32-16",
+        "children": ["前房34-25"]
+     },
+    "前房33-20": {
+        "name": "思敬",
+        "details": "家让长子│谱名怀楮生于光绪庚辰年三月十七日巳时殁殁于1959年1月2日巳时葬于门山中凹向北配李菊英生于光绪十年九月廿八日亥时殁殁于1957年11月12日未时葬于门山中凹生子三及第及元及先",
+        "father":  "前房32-17",
+        "children": ["前房34-26", "前房34-27", "前房34-28"]
+     },
+    "前房33-21": {
+        "name": "思煌",
+        "details": "家让幼子│谱名怀枢生于光绪庚寅年九月廿九日亥时殁殁于1955年7月16日午时葬于门山中凹配袁氏生于光绪癸巳年八月初十日卯时殁殁未载葬于门山中凹生女一连妹适酬山张二房",
+        "father":  "前房32-17",
+        "children": []
+     },
+    "前房34-1": {
+        "name": "树槐",
+        "details": "若美之子│谱名及早生于光绪壬辰年五月初二日申时殁殁于民国十九年六月巳时葬门山大凹向北配夏氏生于光绪戊戌年十一月十二日辰时殁殁于1965年10月14日子时葬于梅神嘴向西北时生子一品灿女一适徐",
+        "father":  "前房33-2",
+        "children": ["前房35-1"]
+     },
+    "前房34-2": {
+        "name": "植槐",
+        "details": "若林之子│谱名及先生于光绪辛丑年八月廿一日午时殁殁于1970年2月4日亥时葬下坟峦向南配陈氏生于光绪壬寅年正月廿六日巳时殁殁于1961年4月5日酉时葬于门山大凹后裔品灿",
+        "father":  "前房33-3",
+        "children": []
+     },
+    "前房34-3": {
+        "name": "述元",
+        "details": "思亮长子│谱名及乾乳名华生生于民国十一年二月廿一日午时殁殁于2008年冬葬于坟峦养女一云珍后裔江波",
+        "father":  "前房33-6",
+        "children": []
+     },
+    "前房34-4": {
+        "name": "述吉",
+        "details": "思亮次子│谱名及坤乳名火生生于民国十四年二月十二日亥时殁殁于2009年夏葬于坟峦配张青吴九房村吴瑞荣生于民国十四年十二月初二日殁殁于2014年秋葬于坟峦生子二江波江涛女二长阿珍适吴幼阿菊适李",
+        "father":  "前房33-6",
+        "children": ["前房35-2", "前房35-3"]
+     },
+    "前房34-5": {
+        "name": "三华",
+        "details": "思亮幼子│谱名及会生于民国十七年十一月廿九日巳时幼年夭折后裔江涛",
+        "father":  "前房33-6",
+        "children": []
+     },
+    "前房34-6": {
+        "name": "及钊",
+        "details": "思勤长子│谱名及兰生于光绪甲辰年十月十一日寅时殁殁于民国卅六年十月十二日巳时葬门山中凸向北配姚氏生于宣统元年十月廿七日巳时殁殁葬未载继周氏夫亡出走后裔耀先耀民养女胡佑花适本村伯甫",
+        "father":  "前房33-8",
+        "children": []
+     },
+    "前房34-7": {
+        "name": "水林",
+        "details": "思勤次子│谱名及芝生于光绪丙午年九月廿五日戌时幼年夭折后裔耀先耀民",
+        "father":  "前房33-8",
+        "children": []
+     },
+    "前房34-8": {
+        "name": "和林",
+        "details": "思勤幼子│谱名及芳字及伦生于民国六年四月初五日午时殁殁于民国卅五年八月十八日午时葬于门山中凹配刘二妹生于民国七年五月初五日亥时殁殁葬未载生子二耀先耀民",
+        "father":  "前房33-8",
+        "children": ["前房35-4", "前房35-5"]
+     },
+    "前房34-9": {
+        "name": "德新",
+        "details": "绚斗长子│谱名及铄生于光绪乙未年十月二十日丑时殁殁于1974年11月28日葬于上坟峦向南│弱躯藏志生意无波遭火劫力排众议隔年废墟重建四列柱瓦宅倾囊供孙读书八十一高寿坚韧留风范│配戢氏生于光绪戊戌年十二月十四日未时殁殁于民国卅六年八月廿一日申时葬于门山大凹向北生子二利华官贵女二长适郭幼适刘",
+        "father":  "前房33-11",
+        "children": ["前房35-6", "前房35-7"]
+     },
+    "前房34-10": {
+        "name": "德昌",
+        "details": "绚斗幼子│谱名及铎生于光绪丙午年十月初一日未时殁殁葬未载配葛氏生于民国三年十二月廿一日辰时后出走后裔利华",
+        "father":  "前房33-11",
+        "children": []
+     },
+    "前房34-11": {
+        "name": "又新",
+        "details": "绚彩长子│谱名及金字德华生于民国三年九月二十日亥时殁殁于1985年8月24日葬于门山大凹配蔡氏生于民国六年十一月初八日丑时殁殁于1964年4月4日与夫合墓生子三培松祖金咚金养女春花",
+        "father":  "前房33-12",
+        "children": ["前房35-8", "前房35-9", "前房35-10"]
+     },
+    "前房34-12": {
+        "name": "再新",
+        "details": "绚彩次子│谱名及木乳名荒苟生于民国十四年五月廿八日亥时殁殁于1976年3月16日葬于坟峦│配石氏生于民国十八年九月十一日戌时殁殁于2005年4月13日葬于坟峦中凸生女一雪萍适李胜常村李细木",
+        "father":  "前房33-12",
+        "children": []
+     },
+    "前房34-13": {
+        "name": "华苟",
+        "details": "绚彩幼子│谱名及水生于民国十八年五月廿二日子时幼年夭折后裔培松",
+        "father":  "前房33-12",
+        "children": []
+     },
+    "前房34-14": {
+        "name": "吉希",
+        "details": "思诚长子│谱名及椿乳名德翔生于民国丙辰年三月十四日未时殁殁于1949年6月20日葬于门山大凹配周氏生于民国五年四月廿三日未时殁殁于1957年12月21日葬于梅神嘴生子一鞋艳",
+        "father":  "前房33-13",
+        "children": ["前房35-11"]
+     },
+    "前房34-15": {
+        "name": "述希",
+        "details": "思诚幼子│谱名及萱乳名德舞生于民国七年十月初五日巳时殁殁于民国卅二年七月廿六日午时葬于门山大凹配李氏生于民国十二年二月十八日卯时夫亡后出走后裔鞋艳",
+        "father":  "前房33-13",
+        "children": []
+     },
+    "前房34-16": {
+        "name": "及盛",
+        "details": "胜友之子│谱名及仪生于光绪癸巳年六月初八日辰时殁殁于1962年3月16日葬于门山配郭氏生于光绪癸巳年七月初三日巳时殁殁于1978年6月26日葬于上坟峦生子二绍维绍甫",
+        "father":  "前房33-14",
+        "children": ["前房35-12", "前房35-13"]
+     },
+    "前房34-17": {
+        "name": "及松",
+        "details": "胜才长子│谱名及梅生于光绪壬辰年十二月十二日戌时殁殁于民国卅六年正月初六日酉时葬于门山大凹向北配吴氏生于光绪癸巳年十二月初九日亥时殁殁于1949年1月8日葬于山峦女二长次妹适刘方村幼桃花适刘山下后裔绍荆",
+        "father":  "前房33-15",
+        "children": []
+     },
+    "前房34-18": {
+        "name": "九龄",
+        "details": "胜才次子│谱名及柳生于光绪丙申年九月初十日巳时殁殁于民国乙卯年正月廿二日戌时葬未载后裔绍荆",
+        "father":  "前房33-15",
+        "children": []
+     },
+    "前房34-19": {
+        "name": "及柏",
+        "details": "胜才三子│谱名及江光绪庚子年九月廿五日亥时殁殁于1992年9月11日葬于门山中凹配李氏生于光绪丁未年十一月廿九日戌时殁殁于民国卅七年十二月二十日丑时葬于门山中凹生子一绍曾女一春菊适吴下坂",
+        "father":  "前房33-15",
+        "children": ["前房35-14"]
+     },
+    "前房34-20": {
+        "name": "及青",
+        "details": "胜才幼子│谱名及春乳名闰林生于宣统元年五月十二日申时殁殁于1961年5月12日葬于门山大凹向北配余杏枝生于民国三年二月十五日殁殁于1991年6月6日葬于门山中凹生子一绍荆女一桂菊适周杨村",
+        "father":  "前房33-15",
+        "children": ["前房35-15"]
+     },
+    "前房34-21": {
+        "name": "及廉",
+        "details": "明德之子│谱名及仁生于光绪辛丑年四月初二日午时殁殁于民国廿九年八月初一日亥时葬于门山中凹配潘氏生于光绪卅四年三月十三日戌时殁殁于1959年9月23日葬于门山中凹生子一爱兰女一适李家坂",
+        "father":  "前房33-16",
+        "children": ["前房35-16"]
+     },
+    "前房34-22": {
+        "name": "及泰",
+        "details": "思聪之子│生于民国三年十一月初一日戌时殁殁于1962年6月19日葬于门山大凹向北配刘姣妹生于民国八年十月初一日亥时殁殁葬未载生女二长大毛适刘山下幼细毛招赘刘海元",
+        "father":  "前房33-17",
+        "children": ["前房35-17"]
+     },
+    "前房34-23": {
+        "name": "及华",
+        "details": "思忠长子│生于民国乙卯年十二月初七日亥时殁殁于1984年8月17日葬于坟峦中凹配吴氏生于民国十二年六月初一日戌时殁殁葬未载继梅氏生年未载殁殁于1986年7月27日与夫葬同处以养女宛凤取名凤钗大义留家招赘周继常",
+        "father":  "前房33-18",
+        "children": ["前房35-18"]
+     },
+    "前房34-24": {
+        "name": "及茂",
+        "details": "思忠幼子│生于民国九年九月廿五日酉时殁殁未载葬于门山配袁氏生于民国九年六月廿一日巳时后出走后裔凤钗",
+        "father":  "前房33-18",
+        "children": []
+     },
+    "前房34-25": {
+        "name": "竹泉",
+        "details": "思义之子│谱名及衡生于宣统元年五月十一日丑时幼年夭折后裔凤钗",
+        "father":  "前房33-19",
+        "children": []
+     },
+    "前房34-26": {
+        "name": "及第",
+        "details": "思敬长子│谱名及崧生于宣统元年十二月廿四日寅时殁殁于1981年8月9日葬于门山中凹上坡向北配周龙姣生于光绪丙午年七月十七日戌时殁殁于民国卅七年十月十二日未时生子二伯甫仲甫女一雪花适张青吴英村",
+        "father":  "前房33-20",
+        "children": ["前房35-19", "前房35-20"]
+     },
+    "前房34-27": {
+        "name": "及元",
+        "details": "思敬次子│谱名及嶽生于民国壬子年八月廿八日丑时殁殁于1980年9月16日葬于上坟峦向东南配潘氏生于宣统庚戌年二月廿一日辰时殁殁于1983年12月15日葬于上坟峦向东南生子裕甫青年折亡女二长水花留家招赘吕直华幼杏花适杨垄周村",
+        "father":  "前房33-20",
+        "children": ["前房35-21", "前房35-22"]
+     },
+    "前房34-28": {
+        "name": "瑶琳",
+        "details": "思敬幼子│谱名及岧生于民国十二年六月初三日子时殁殁于民国三十年正月初八日辰时葬于门山中凹向北配吴氏生于民国十二年九月廿五日戌时后出走后裔仲甫",
+        "father":  "前房33-20",
+        "children": []
+     },
+    "前房35-1": {
+        "name": "品灿",
+        "details": "树槐之子│谱名第见乳名金保生于民国十六年八月廿四日申时殁殁于1989年12月27日葬于梅神嘴向西北配柳雪梅生于民国廿二年十二月十二日巳时殁殁葬未载生子一仁武",
+        "father":  "前房34-1",
+        "children": ["前房支36-1"]
+     },
+    "前房35-2": {
+        "name": "江波",
+        "details": "述吉长子│谱名第漠乳名阿宝生于1961年10月1日配道桥沈家岭刘艳珍生于1962年11月8日生子一锦女二芬佳",
+        "father":  "前房34-4",
+        "children": ["前房支36-2", "前房支36-3", "前房支36-4"]
+     },
+    "前房35-3": {
+        "name": "江涛",
+        "details": "述吉幼子│谱名第海乳名阿初生于1966年11月22日",
+        "father":  "前房34-4",
+        "children": []
+     },
+    "前房35-4": {
+        "name": "耀先",
+        "details": "和林长子│谱名第波生于民国三十年三月十三日辰时殁殁于2019年7月6日葬于村公墓第一排配张青吴一方吴雪初生于民国廿七年十一月十五日生子二小华细华女一美华适刘九房村刘小林",
+        "father":  "前房34-8",
+        "children": ["前房支36-5", "前房支36-6"]
+     },
+    "前房35-5": {
+        "name": "耀民",
+        "details": "和林幼子│谱名第源生于民国卅五年八月初六日巳时殁殁于2014年3月1日葬于门山配张青乡大路潘家潘如珍生于民国卅七年二月十三日殁殁于2023年2月15日葬于门山合葬于西向生子一永红女三长红菊适深圳陈和兴次红云幼红英适香港林阿建",
+        "father":  "前房34-8",
+        "children": ["前房支36-7"]
+     },
+    "前房35-6": {
+        "name": "利华",
+        "details": "德新长子│谱名第济乳名林贵生于民国六年七月十七日亥时殁殁于1972年9月1日葬于上坟峦│父因癌早逝生平忠厚纯良遇欺不较处逆不馁民国卅六年冬遭火灾虽体弱仍昼夜劳作重建家园省吃俭用供子读书勤劳坚韧德范永承│配张细花生于民国十年十月初八日卯时40天襁褓成童养媳殁殁于2002年7月26日葬于中坟峦向南│母助父重建家园为求子嗣虔诚祈愿毕生礼佛吃素茹苦育儿长女先桃年约一岁早夭遂抱养袁松钗以接奶幼女先荣三岁夭折出殡日恰逢地藏王诞辰吉日圆满一生│生子一先发女三先桃先荣养女松钗适袁",
+        "father":  "前房34-9",
+        "children": ["前房支36-8"]
+     },
+    "前房35-7": {
+        "name": "官贵",
+        "details": "德新幼子│谱名第滨生于民国十八年九月初六日巳时幼年夭折后裔先发",
+        "father":  "前房34-9",
+        "children": []
+     },
+    "前房35-8": {
+        "name": "培松",
+        "details": "又新长子│谱名第㥽乳名秋贵生于民国三十年八月廿日巳时殁殁于1985年3月2日未时葬于下坟峦自题联风吹培更发霜刺松长青│清明念涌忆慈颜卌载流光意万千培德营组倾心力松傲霜寒志愈坚父逝家贫途坎坷昔苦长缠影未迁松姿长映恩波厚今有曾孙慰九泉│配柏树李家坂李鞋连生于民国卅四年十一月初十日寅时生子二先海先军女一先霞适流泗程和村程鹏",
+        "father":  "前房34-11",
+        "children": ["前房支36-9", "前房支36-10"]
+     },
+    "前房35-9": {
+        "name": "祖金",
+        "details": "又新次子│谱名第湧字志斌生于1949年7月1日九江农校毕业流泗镇干部殁殁于2010年7月28日葬檀垅宁家村│年少就读共大九江农校备入空军时因母族地主身份落选入职流泗镇政府起初积极有为终因不谙官场又连生四女阻断晋升之路年纪大些时享保薪待遇在学校附近租房为学生做饭甚是辛苦待条件有所改善却查出胃癌六十刚满就离去仅享退休待遇两月│配秦号宁生于1958年10月15日生女四珏碧珍爱",
+        "father":  "前房34-11",
+        "children": ["前房支36-11", "前房支36-12", "前房支36-13", "前房支36-14"]
+     },
+    "前房35-10": {
+        "name": "咚金",
+        "details": "又新幼子│谱名第渚字学斌生于1953年11月28日殁殁于2019年8月5日葬于村公墓第一排向北│年壮时入矿井贩鱼苗一生所触除田土之外莫过于水中鱼或因此故身染疾疴后以轮椅度日两载有余终寿六十六│配杨云珍生于1954年9月17日生子二先琪先伟女一先琴",
+        "father":  "前房34-11",
+        "children": ["前房支36-15", "前房支36-16"]
+     },
+    "前房35-11": {
+        "name": "鞋艳",
+        "details": "吉希之子│谱名第湖字少芳生于民国卅三年十二月廿七日殁殁于2025年2月5日葬于梅神嘴向西北配张青张二方村张任钗生于1949年9月26日殁殁于1994年9月28日与夫合墓生子二益鹏鹏华女三长雪毛适刘次雪华适张幼捡红适袁",
+        "father":  "前房34-14",
+        "children": ["前房支36-17", "前房支36-18"]
+     },
+    "前房35-12": {
+        "name": "绍维",
+        "details": "及盛长子│谱名第吉乳名第长生于民国三年十月廿六日辰时殁殁于1979年7月20日葬于上坟峦配杨氏生于民国九年七月廿六日申时殁殁于1977年1月28日葬未载生子四先启先二先三先贵女二长先女适沈家舍幼先菊适刘山下",
+        "father":  "前房34-16",
+        "children": ["前房支36-19", "前房支36-20", "前房支36-21", "前房支36-22"]
+     },
+    "前房35-13": {
+        "name": "绍甫",
+        "details": "及盛幼子│谱名第祥乳名清生生于民国八年正月廿一日亥时殁殁于1982年10月11日葬于上坟峦向南配刘桃花生于民国十六年三月初五日酉时殁殁于1998年5月葬于上坟峦向南生子一先龙女三长先凤适李相村次细凤适刘方村幼小凤适吴下坂村",
+        "father":  "前房34-16",
+        "children": ["前房支36-23"]
+     },
+    "前房35-14": {
+        "name": "绍曾",
+        "details": "及柏之子│谱名第澜生于民国廿一年九月十九日戌时殁殁于1978年10月24日葬于门山中凹配袁氏生于民国十九年十二月二十日未时殁殁于1965年12月24日葬于门山生子二木水海水女一火枝适葛家桥葛六初",
+        "father":  "前房34-19",
+        "children": ["前房支36-24", "前房支36-25"]
+     },
+    "前房35-15": {
+        "name": "绍荆",
+        "details": "及青之子│谱名第愃生于民国廿八年十月廿一日殁殁于2013年8月17日葬未载配周郭村周菊钗生于民国卅三年九月十五日生子三先平先保先云女一先梅适郑四房村郑水平",
+        "father":  "前房34-20",
+        "children": ["前房支36-26", "前房支36-27", "前房支36-28"]
+     },
+    "前房35-16": {
+        "name": "爱兰",
+        "details": "及廉之子│谱名第乾乳名香生生于民国十七年三月十九日巳时殁殁于2004年8月8日葬于门山中凹向东北后裔外甥女李细花孙辈龙祥龙艳",
+        "father":  "前房34-21",
+        "children": []
+     },
+    "前房35-17": {
+        "name": "细毛",
+        "details": "及泰幼女│谱名第娟生于1956年9月5日殁殁葬未载赘婿刘海元生于1951年9月8日生子二红波四红女二长红兰适刘瑞里刘美金幼论红",
+        "father":  "前房34-22",
+        "children": ["前房支36-29", "前房支36-30", "前房支36-31"]
+     },
+    "前房35-18": {
+        "name": "凤钗",
+        "details": "及华养女│谱名第娣生于民国卅五年九月三十日未时赘婿周继常大学文凭高级教师生于民国廿四年九月十五日巳时殁殁于2004年11月17日葬于周常祖坟山向南生子四效宏颖洪锴黉学鸿女二长卫红适本村先华次宇虹适上饶郑明道",
+        "father":  "前房34-23",
+        "children": ["前房支36-32", "前房支36-33", "前房支36-34", "前房支36-35"]
+     },
+    "前房35-19": {
+        "name": "伯甫",
+        "details": "及第长子│谱名第清生于民国廿一年四月廿六日配及钊养女道桥曾家塘村胡佑花与夫同庚八月十三日殁殁于2012年8月13日葬于门山中凸生子二学渊学群女四长先枝适文桥上蔡村蔡学雄次先玉适张青吴英村吴学军三玉兰适江桥陶村陶勇幼笑兰适张青茶铺岭曹晓强",
+        "father":  "前房34-26",
+        "children": ["前房支36-36", "前房支36-37"]
+     },
+    "前房35-20": {
+        "name": "仲甫",
+        "details": "及第幼子│谱名第渭生于民国廿八年一月初四日殁殁于2022年1月9日葬未载配潘银娥生于民国廿六年十月二十日殁殁于2018年12月8日葬未载生子三智渊先举先羊",
+        "father":  "前房34-26",
+        "children": ["前房支36-38", "前房支36-39", "前房支36-40"]
+     },
+    "前房35-21": {
+        "name": "裕甫",
+        "details": "及元之子│谱名第泽生于民国廿九年九月十二日酉时殁殁于1962年7月20日葬未载配潘氏后出走后裔美保",
+        "father":  "前房34-27",
+        "children": []
+     },
+    "前房35-22": {
+        "name": "水花",
+        "details": "及元长女│谱名第英生于1950年6月10日赘婿吕直华生于民国廿九年六月初九日巳时殁殁于2009年4月4日葬于门山生子二美保佳宝女三长先红适本村智渊次美红适九江夏志强幼美霞适湖口屈新兵",
+        "father":  "前房34-27",
+        "children": ["前房支36-41", "前房支36-42"]
+     },
+    "前房支36-1": {
+        "name": "仁武",
+        "details": "品灿之子│生于1967年12月16日配陈玉云生于1971年9月26日生子二煌汪",
+        "father":  "前房35-1",
+        "children": ["前房支37-1", "前房支37-2"]
+     },
+    "前房支36-2": {
+        "name": "锦",
+        "details": "江波之子│生于1991年2月1日江西财经大学毕业供职于杭州",
+        "father":  "前房35-2",
+        "children": []
+     },
+    "前房支36-3": {
+        "name": "芬",
+        "details": "江波长女│生于1986年4月3日适柯观村柯华东生子二燚航燚诺",
+        "father":  "前房35-2",
+        "children": []
+     },
+    "前房支36-4": {
+        "name": "佳",
+        "details": "江波幼女│生于1988年9月27日适王展鹏生于1989年3月15日均供职于南昌生子一也",
+        "father":  "前房35-2",
+        "children": []
+     },
+    "前房支36-5": {
+        "name": "小华",
+        "details": "耀先长子│生于1971年8月10日供职于广州配徐青琴生于1972年2月2日供职于杭州生子一磊女一娉娉",
+        "father":  "前房35-4",
+        "children": ["前房支37-3", "前房支37-4"]
+     },
+    "前房支36-6": {
+        "name": "细华",
+        "details": "耀先幼子│生于1976年9月27日供职于上海配柯丽霞生于1979年8月28日生子一伟女一婷",
+        "father":  "前房35-4",
+        "children": ["前房支37-5", "前房支37-6"]
+     },
+    "前房支36-7": {
+        "name": "永红",
+        "details": "耀民之子│生于1968年3月25日九江学院专科北京师范大学本科毕业高级教师配湖北松滋钟青容生于1977年9月29日华南农业大学毕业均供职于深圳生子一钟岳",
+        "father":  "前房35-5",
+        "children": ["前房支37-7"]
+     },
+    "前房支36-8": {
+        "name": "先发",
+        "details": "利华之子│科级干部生于1950年3月1日殁殁于2018年2月27日葬于门山金星顶配周郭村周秀梅生于1951年3月14日生子一龙卿女二小娟小玉",
+        "father":  "前房35-6",
+        "children": ["前房支37-8"]
+     },
+    "前房支36-9": {
+        "name": "先海",
+        "details": "培松长子│木匠生于1968年6月19日│时方五年级见邻人习瓦工乃辍学从第宽于市五院学木工十余年辗转历练后逢院改制归乡于近旁营家装与媳共开饭堂素热心乡务事事参与育有子女各一皆有成│配均桥赵桂芳与夫同庚8月23日生子一良良女一梦梦",
+        "father":  "前房35-8",
+        "children": ["前房支37-9", "前房支37-10"]
+     },
+    "前房支36-10": {
+        "name": "先军",
+        "details": "培松幼子│生于1974年6月14日│幼嬉乡野父早丧母育之志于学未果乃赴沪昼工夜学涉设计终有成回乡伴读恰值年谋新篇恤贫户创村晚篆新谱│配走马新安铺程村程红英生于1975年3月10日生子一思远女一思彦",
+        "father":  "前房35-8",
+        "children": ["前房支37-11", "前房支37-12"]
+     },
+    "前房支36-11": {
+        "name": "珏",
+        "details": "祖金长女│生于1981年4月25日九江职业大学毕业适凰村下秦村秦兴生子一家亮",
+        "father":  "前房35-9",
+        "children": ["前房支37-13"]
+     },
+    "前房支36-12": {
+        "name": "碧",
+        "details": "祖金次女│生于1983年9月29日九江学院毕业供职于九江三甲医院适武山程松平生子一定宇",
+        "father":  "前房35-9",
+        "children": ["前房支37-14"]
+     },
+    "前房支36-13": {
+        "name": "珍",
+        "details": "祖金三女│生于1985年12月22日兰州交通大学硕士毕业南昌高校教职适瑞昌盛伟兵生女一甜宁",
+        "father":  "前房35-9",
+        "children": ["前房支37-15"]
+     },
+    "前房支36-14": {
+        "name": "爱",
+        "details": "祖金幼女│生于1988年11月15日九江学院毕业九江城区小学教职适河南李福奎生子二宁辰",
+        "father":  "前房35-9",
+        "children": ["前房支37-16", "前房支37-17"]
+     },
+    "前房支36-15": {
+        "name": "先琪",
+        "details": "咚金长子│生于1975年1月8日│1998年赴沪初入食品厂暇时自研诸艺至2002年转事门窗制造因绩显升组长亦于此际成家2006年投身空调业2008年赴省城营恒温调控商机维保诸业至今10余载│配吴正凤生于1976年1月16日生子一星宇女二晶晶莹莹",
+        "father":  "前房35-10",
+        "children": ["前房支37-18", "前房支37-19", "前房支37-20"]
+     },
+    "前房支36-16": {
+        "name": "先伟",
+        "details": "咚金幼子│生于1979年8月29日供职于上海配刘二方村刘云霞生于1980年11月13日生子一鑫鹏女一欣怡",
+        "father":  "前房35-10",
+        "children": ["前房支37-21", "前房支37-22"]
+     },
+    "前房支36-17": {
+        "name": "益鹏",
+        "details": "鞋艳长子│生于1970年3月18日配刘小平生于1971年8月21日生子一玉强女一玉花",
+        "father":  "前房35-11",
+        "children": ["前房支37-23", "前房支37-24"]
+     },
+    "前房支36-18": {
+        "name": "鹏华",
+        "details": "鞋艳幼子│乳名老五生于1979年7月13日配流泗邹源下铺村邹锦菊生于1979年7月15日生女二玉莹玉盼",
+        "father":  "前房35-11",
+        "children": ["前房支37-25", "前房支37-26"]
+     },
+    "前房支36-19": {
+        "name": "先启",
+        "details": "绍维长子│号焕章生于民国卅一年九月初四日殁殁于2022年6月9日葬于村公墓6排2号",
+        "father":  "前房35-12",
+        "children": []
+     },
+    "前房支36-20": {
+        "name": "先二",
+        "details": "绍维次子│号焕泽生于民国卅四年十月廿九午时配周细珍生于1950年10月15日生子一卫华女一东华",
+        "father":  "前房35-12",
+        "children": ["前房支37-27", "前房支37-28"]
+     },
+    "前房支36-21": {
+        "name": "先三",
+        "details": "绍维三子│生于1949年6月15日因婚迁张青乡周北庄村1984年携全家迁回配周慧娥生于1953年12月10日殁殁于2024年10月22日葬于村公墓第六排生子二建明建义女一建霞",
+        "father":  "前房35-12",
+        "children": ["前房支37-29", "前房支37-30", "前房支37-31"]
+     },
+    "前房支36-22": {
+        "name": "先贵",
+        "details": "绍维幼子│生于1955年10月3日殁殁于2021年8月18日葬于村公墓5排8号",
+        "father":  "前房35-12",
+        "children": []
+     },
+    "前房支36-23": {
+        "name": "先龙",
+        "details": "绍甫之子│字敏生于1950年6月13日配观桥李相村李桂凤生于1952年6月1日生子一锦云女二长雪适东塘柯老屋生一子一女后嫁胜利下杨家次秋云适观桥刘观仁生一子一女",
+        "father":  "前房35-13",
+        "children": ["前房支37-32"]
+     },
+    "前房支36-24": {
+        "name": "木水",
+        "details": "绍曾长子│生于1951年9月8日殁殁于1998年5月21日葬于上坟峦向南",
+        "father":  "前房35-14",
+        "children": []
+     },
+    "前房支36-25": {
+        "name": "海水",
+        "details": "绍曾幼子│生于1963年4月21日殁殁于2010年11月9日葬于祖坟山│半生劬劳英年早逝稚子犹在备尝千劫两女承志一燕园硕学一洪都修业京鄂展才足慰椿庭编者注│配屈志宏生于1969年9月20日生女二林丽林欣",
+        "father":  "前房35-14",
+        "children": ["前房支37-33", "前房支37-34"]
+     },
+    "前房支36-26": {
+        "name": "先平",
+        "details": "绍荆长子│生于1967年5月22日配东塘村柯会堂坂柯学连生于1967年8月22日生子一凌波女一玲玉",
+        "father":  "前房35-15",
+        "children": ["前房支37-35", "前房支37-36"]
+     },
+    "前房支36-27": {
+        "name": "先保",
+        "details": "绍荆次子│字超生于1969年7月20日配道桥董村董华荣生于1971年12月25日生子二扬波国波",
+        "father":  "前房35-15",
+        "children": ["前房支37-37", "前房支37-38"]
+     },
+    "前房支36-28": {
+        "name": "先云",
+        "details": "绍荆幼子│生于1972年10月2日曾任道桥村支书8年配张青刘瑞叶角塘村叶鸾芙生于1976年10月6日生子二龙波清博女一璐",
+        "father":  "前房35-15",
+        "children": ["前房支37-39", "前房支37-40", "前房支37-41"]
+     },
+    "前房支36-29": {
+        "name": "红波",
+        "details": "细毛长子│生于1976年10月9日配刘清霞生于1978年5月15日生子一进华女一苗苗",
+        "father":  "前房35-17",
+        "children": ["前房支37-42", "前房支37-43"]
+     },
+    "前房支36-30": {
+        "name": "四红",
+        "details": "细毛幼子│生于1991年9月4日",
+        "father":  "前房35-17",
+        "children": []
+     },
+    "前房支36-31": {
+        "name": "论红",
+        "details": "细毛幼女│生于1987年6月22日",
+        "father":  "前房35-17",
+        "children": []
+     },
+    "前房支36-32": {
+        "name": "效宏",
+        "details": "凤钗长子│生于1963年12月26日江西财经大学毕业配曹达君生于1963年6月17日生子一珺晖女一珺如",
+        "father":  "前房35-18",
+        "children": ["前房支37-44", "前房支37-45"]
+     },
+    "前房支36-33": {
+        "name": "颖洪",
+        "details": "凤钗次子│生于1966年9月1日九江学院毕业配曹小英生于1967年4月20日生女一瑛茹",
+        "father":  "前房35-18",
+        "children": ["前房支37-46"]
+     },
+    "前房支36-34": {
+        "name": "锴黉",
+        "details": "凤钗三子│生于1974年4月26日配胡凤英生于1974年2月16日生子一骏瑄",
+        "father":  "前房35-18",
+        "children": ["前房支37-47"]
+     },
+    "前房支36-35": {
+        "name": "学鸿",
+        "details": "凤钗幼子│生于1975年9月28日配李明清生于1980年7月7日生子一君安女一君雅",
+        "father":  "前房35-18",
+        "children": ["前房支37-48", "前房支37-49"]
+     },
+    "前房支36-36": {
+        "name": "学渊",
+        "details": "伯甫长子│乳名先水生于1953年3月16日供职于张青政府配李阿菊生于1953年10月16日生子二锟翔鹏翔",
+        "father":  "前房35-19",
+        "children": ["前房支37-50", "前房支37-51"]
+     },
+    "前房支36-37": {
+        "name": "学群",
+        "details": "伯甫幼子│生于1971年8月20日供职于县商务局配双钟镇月亮谢家村谢小红生于1971年5月10日供职于石钟山生子一琦",
+        "father":  "前房35-19",
+        "children": ["前房支37-52"]
+     },
+    "前房支36-38": {
+        "name": "智渊",
+        "details": "仲甫长子│生于1965年10月26日配郭先红生于1966年10月25日生子一锦翔女一锦凤",
+        "father":  "前房35-20",
+        "children": ["前房支37-53", "前房支37-54"]
+     },
+    "前房支36-39": {
+        "name": "先举",
+        "details": "仲甫次子│生于1968年8月16日配倪赛金生于1971年3月14日生子一建女一君",
+        "father":  "前房35-20",
+        "children": ["前房支37-55", "前房支37-56"]
+     },
+    "前房支36-40": {
+        "name": "先羊",
+        "details": "仲甫幼子│生于1973年12月23日配大路潘村潘群钗生于1976年10月12日生子一江女一凤",
+        "father":  "前房35-20",
+        "children": ["前房支37-57", "前房支37-58"]
+     },
+    "前房支36-41": {
+        "name": "美保",
+        "details": "水花长子│生于1973年8月23日配郑红霞生于1973年8月22日生子二吉祥飞翔",
+        "father":  "前房35-22",
+        "children": ["前房支37-59", "前房支37-60"]
+     },
+    "前房支36-42": {
+        "name": "佳宝",
+        "details": "水花幼子│生于1978年12月27日幼年夭折",
+        "father":  "前房35-22",
+        "children": []
+     },
+    "前房支37-1": {
+        "name": "煌",
+        "details": "仁武长子│生于1993年11月6日配李玲生于1995年2月8日江西师范大学毕业供职于县第三幼儿园生女一玙礼",
+        "father":  "前房支36-1",
+        "children": ["前房支38-1"]
+     },
+    "前房支37-2": {
+        "name": "汪",
+        "details": "仁武幼子│生于2005年7月5日",
+        "father":  "前房支36-1",
+        "children": []
+     },
+    "前房支37-3": {
+        "name": "磊",
+        "details": "小华之子│生于2006年6月12日",
+        "father":  "前房支36-5",
+        "children": []
+     },
+    "前房支37-4": {
+        "name": "娉娉",
+        "details": "小华之女│生于1998年12月1日",
+        "father":  "前房支36-5",
+        "children": []
+     },
+    "前房支37-5": {
+        "name": "伟",
+        "details": "细华之子│生于2011年",
+        "father":  "前房支36-6",
+        "children": []
+     },
+    "前房支37-6": {
+        "name": "婷",
+        "details": "细华之女│生于2000年2月7日天津财经大学珠江学院毕业供职于河北雄安",
+        "father":  "前房支36-6",
+        "children": []
+     },
+    "前房支37-7": {
+        "name": "钟岳",
+        "details": "永红之子│生于2005年8月24日桂林电子科技大学在读",
+        "father":  "前房支36-7",
+        "children": []
+     },
+    "前房支37-8": {
+        "name": "龙卿",
+        "details": "先发之子│乳名小波生于1973年9月27日九江军需财经专科学校即九江学院毕业上海创业配俞胜男生于1973年1月19日生子一尚飞",
+        "father":  "前房支36-8",
+        "children": ["前房支38-2"]
+     },
+    "前房支37-9": {
+        "name": "良良",
+        "details": "先海之子│生于1993年3月26日九江学院毕业供职于深圳配胡文露生于1994年6月26日生女一小序",
+        "father":  "前房支36-9",
+        "children": ["前房支38-3"]
+     },
+    "前房支37-10": {
+        "name": "梦梦",
+        "details": "先海之女│生于1991年2月2日安徽财经大学毕业供职于深圳",
+        "father":  "前房支36-9",
+        "children": []
+     },
+    "前房支37-11": {
+        "name": "思远",
+        "details": "先军之子│生于2009年4月28日",
+        "father":  "前房支36-10",
+        "children": []
+     },
+    "前房支37-12": {
+        "name": "思彦",
+        "details": "先军之女│生于2000年7月27日南昌航空大学毕业供职于上海杨浦",
+        "father":  "前房支36-10",
+        "children": []
+     },
+    "前房支37-13": {
+        "name": "家亮",
+        "details": "珏之子│生于2011年1月6日",
+        "father":  "前房支36-11",
+        "children": []
+     },
+    "前房支37-14": {
+        "name": "定宇",
+        "details": "碧之子│生于2008年8月26日",
+        "father":  "前房支36-12",
+        "children": []
+     },
+    "前房支37-15": {
+        "name": "甜宁",
+        "details": "珍之女│生于2017年6月6日",
+        "father":  "前房支36-13",
+        "children": []
+     },
+    "前房支37-16": {
+        "name": "宁",
+        "details": "爱长子│生于2013年8月7日",
+        "father":  "前房支36-14",
+        "children": []
+     },
+    "前房支37-17": {
+        "name": "辰",
+        "details": "爱幼子│生于2020年2月28日",
+        "father":  "前房支36-14",
+        "children": []
+     },
+    "前房支37-18": {
+        "name": "星宇",
+        "details": "先琪之子│生于2006年9月28日南昌大学共青学院在读",
+        "father":  "前房支36-15",
+        "children": []
+     },
+    "前房支37-19": {
+        "name": "晶晶",
+        "details": "先琪长女│生于1999年11月16日三亚学院毕业供职于深圳",
+        "father":  "前房支36-15",
+        "children": []
+     },
+    "前房支37-20": {
+        "name": "莹莹",
+        "details": "先琪幼女│生于2005年3月13日南昌航空大学在读",
+        "father":  "前房支36-15",
+        "children": []
+     },
+    "前房支37-21": {
+        "name": "鑫鹏",
+        "details": "先伟之子│生于2011年1月21日",
+        "father":  "前房支36-16",
+        "children": []
+     },
+    "前房支37-22": {
+        "name": "欣怡",
+        "details": "先伟之女│生于2005年10月10日福建理工大学在读",
+        "father":  "前房支36-16",
+        "children": []
+     },
+    "前房支37-23": {
+        "name": "玉强",
+        "details": "益鹏之子│生于1992年8月21日",
+        "father":  "前房支36-17",
+        "children": ["前房支38-4", "前房支38-5"]
+     },
+    "前房支37-24": {
+        "name": "玉芬",
+        "details": "益鹏之女│生于1989年7月8日",
+        "father":  "前房支36-17",
+        "children": []
+     },
+    "前房支37-25": {
+        "name": "玉莹",
+        "details": "鹏华长女│生于2006年5月5日重庆航空职业技术学院毕业供职于深圳",
+        "father":  "前房支36-18",
+        "children": []
+     },
+    "前房支37-26": {
+        "name": "玉盼",
+        "details": "鹏华幼女│生于2008年3月1日重庆万州在校学生",
+        "father":  "前房支36-18",
+        "children": []
+     },
+    "前房支37-27": {
+        "name": "卫华",
+        "details": "先二之子│生于1978年10月20日配王小霞生于1979年8月21日生女一佳丽",
+        "father":  "前房支36-20",
+        "children": ["前房支38-6"]
+     },
+    "前房支37-28": {
+        "name": "冬华",
+        "details": "先二之女│生于1974年11月24日",
+        "father":  "前房支36-20",
+        "children": []
+     },
+    "前房支37-29": {
+        "name": "建明",
+        "details": "先三长子│乳名小义1980年4月4日出生于张青周北庄2019年与上房云宙下房利斌共操祖堂重建事宜24岁娶江桥罗垄村刘丽君生于1981年10月15日生子一南飞女一梦飞",
+        "father":  "前房支36-21",
+        "children": ["前房支38-8", "前房支38-9"]
+     },
+    "前房支37-30": {
+        "name": "建义",
+        "details": "先三幼子│生于1983年2月19日配李希白村李敏生于1982年9月23日生子一宇飞女一宇涵",
+        "father":  "前房支36-21",
+        "children": ["前房支38-10", "前房支38-11"]
+     },
+    "前房支37-31": {
+        "name": "建霞",
+        "details": "先三之女│生于1986年2月26日24岁嫁河南新乡曹乾坤生于1982年3月31日",
+        "father":  "前房支36-21",
+        "children": []
+     },
+    "前房支37-32": {
+        "name": "锦云",
+        "details": "先龙之子│生于1973年1月5日配周佩生子二长飞幼梓辰女二长粤幼梦溪",
+        "father":  "前房支36-23",
+        "children": ["前房支38-12", "前房支38-13", "前房支38-14", "前房支38-15"]
+     },
+    "前房支37-33": {
+        "name": "林丽",
+        "details": "海水长女│生于1992年7月27日北京大学硕士",
+        "father":  "前房支36-25",
+        "children": []
+     },
+    "前房支37-34": {
+        "name": "林欣",
+        "details": "海水幼女│生于1998年6月26日南昌设计学院毕业供职于武汉",
+        "father":  "前房支36-25",
+        "children": []
+     },
+    "前房支37-35": {
+        "name": "凌波",
+        "details": "先平之子│生于1990年12月28日配徐余生于1993年7月2日生子一亚飞",
+        "father":  "前房支36-26",
+        "children": ["前房支38-16"]
+     },
+    "前房支37-36": {
+        "name": "玲玉",
+        "details": "先平之女│生于1988年10月22日适余枫生于1988年12月25日",
+        "father":  "前房支36-26",
+        "children": []
+     },
+    "前房支37-37": {
+        "name": "扬波",
+        "details": "先保长子│生于1993年5月27日配新余罗辉生于1993年10月15日生子一书翊",
+        "father":  "前房支36-27",
+        "children": ["前房支38-17"]
+     },
+    "前房支37-38": {
+        "name": "国波",
+        "details": "先保幼子│生于1995年6月23日配湖南桃江莫美英生于1998年12月1日供职于长沙",
+        "father":  "前房支36-27",
+        "children": []
+     },
+    "前房支37-39": {
+        "name": "龙波",
+        "details": "先云长子│生于1996年11月2日江西交通职业技术学院毕业",
+        "father":  "前房支36-28",
+        "children": []
+     },
+    "前房支37-40": {
+        "name": "清博",
+        "details": "先云幼子│生于2005年2月6日江西水利职业学院毕业双胞胎儿子",
+        "father":  "前房支36-28",
+        "children": []
+     },
+    "前房支37-41": {
+        "name": "璐",
+        "details": "先云之女│生于2005年2月6日南昌医学院毕业双胞胎女儿",
+        "father":  "前房支36-28",
+        "children": []
+     },
+    "前房支37-42": {
+        "name": "进华",
+        "details": "红波之子│生于2006年3月18日",
+        "father":  "前房支36-29",
+        "children": []
+     },
+    "前房支37-43": {
+        "name": "苗苗",
+        "details": "红波之女│生于1999年10月21日",
+        "father":  "前房支36-29",
+        "children": []
+     },
+    "前房支37-44": {
+        "name": "珺晖",
+        "details": "效宏之子│2002年7月25日生于广州澳门城市大学毕业",
+        "father":  "前房支36-32",
+        "children": []
+     },
+    "前房支37-45": {
+        "name": "珺如",
+        "details": "效宏之女│生于1991年3月8日电子科技大学中山学院毕业",
+        "father":  "前房支36-32",
+        "children": []
+     },
+    "前房支37-46": {
+        "name": "瑛茹",
+        "details": "颖洪之女│生于1994年12月29日",
+        "father":  "前房支36-33",
+        "children": []
+     },
+    "前房支37-47": {
+        "name": "骏瑄",
+        "details": "锴黉之子│生于2004年4月8日广州航海学院毕业",
+        "father":  "前房支36-34",
+        "children": []
+     },
+    "前房支37-48": {
+        "name": "君安",
+        "details": "学鸿之子│生于2009年2月16日",
+        "father":  "前房支36-35",
+        "children": []
+     },
+    "前房支37-49": {
+        "name": "君雅",
+        "details": "学鸿之女│生于2017年5月22日",
+        "father":  "前房支36-35",
+        "children": []
+     },
+    "前房支37-50": {
+        "name": "锟翔",
+        "details": "学渊长子│生于1976年7月24日南昌师范学院毕业历任广丰职业高级中学副校长广丰康桥中学年级校长广丰一中教务主任配杨玉华生于1977年9月16日广丰一中实验班主任兼历史教师生子一梓阳女二长晔幼星悦",
+        "father":  "前房支36-36",
+        "children": ["前房支38-18", "前房支38-19", "前房支38-20"]
+     },
+    "前房支37-51": {
+        "name": "鹏翔",
+        "details": "学渊幼子│生于1978年10月11日九江学院毕业北京师范大学新余附属学校教职配肖桂萍生于1979年2月5日宜春学院毕业赣西学院教职生子三长煜次东昕幼东旭",
+        "father":  "前房支36-36",
+        "children": ["前房支38-21", "前房支38-22", "前房支38-23"]
+     },
+    "前房支37-52": {
+        "name": "琦",
+        "details": "学群之子│生于1997年4月17日配上饶广丰刘巧丽生于1997年5月20日均供职于深圳",
+        "father":  "前房支36-37",
+        "children": ["前房支38-24"]
+     },
+    "前房支37-53": {
+        "name": "锦翔",
+        "details": "智渊之子│生于1989年7月15日",
+        "father":  "前房支36-38",
+        "children": []
+     },
+    "前房支37-54": {
+        "name": "锦凤",
+        "details": "智渊之女│生于1991年12月18日",
+        "father":  "前房支36-38",
+        "children": []
+     },
+    "前房支37-55": {
+        "name": "建",
+        "details": "先举之子│生于1998年11月6日",
+        "father":  "前房支36-39",
+        "children": []
+     },
+    "前房支37-56": {
+        "name": "君",
+        "details": "先举之女│生于1993年12月20日",
+        "father":  "前房支36-39",
+        "children": []
+     },
+    "前房支37-57": {
+        "name": "江",
+        "details": "先羊之子│生于1999年5月8日",
+        "father":  "前房支36-40",
+        "children": []
+     },
+    "前房支37-58": {
+        "name": "凤",
+        "details": "先羊之女│生于2007年6月16日江西财经大学在读",
+        "father":  "前房支36-40",
+        "children": []
+     },
+    "前房支37-59": {
+        "name": "吉祥",
+        "details": "美保长子│生于1993年3月9日",
+        "father":  "前房支36-41",
+        "children": []
+     },
+    "前房支37-60": {
+        "name": "飞翔",
+        "details": "美保幼子│生于1995年1月9日大理大学毕业配湖南常德刘粤生于1997年6月23日湖南工商大学毕业均供职于长沙生子一乐佑",
+        "father":  "前房支36-41",
+        "children": ["前房支38-25"]
+     },
+    "前房支38-1": {
+        "name": "玙礼",
+        "details": "煌之女│生于2021年12月20日",
+        "father":  "前房支37-1",
+        "children": []
+     },
+    "前房支38-2": {
+        "name": "尚飞",
+        "details": "龙卿之子│生于2005年8月13日现居日本在校学生",
+        "father":  "前房支37-8",
+        "children": []
+     },
+    "前房支38-3": {
+        "name": "小序",
+        "details": "良良之女│生于2021年11月21日现居深圳学前教育",
+        "father":  "前房支37-9",
+        "children": []
+     },
+    "前房支38-4": {
+        "name": "政柯",
+        "details": "玉强长子│未载",
+        "father":  "前房支37-23",
+        "children": []
+     },
+    "前房支38-5": {
+        "name": "瑞柯",
+        "details": "玉强幼子│未载",
+        "father":  "前房支37-23",
+        "children": []
+     },
+    "前房支38-6": {
+        "name": "佳丽",
+        "details": "卫华长女│生于2006年9月23日",
+        "father":  "前房支37-27",
+        "children": []
+     },
+    "前房支38-7": {
+        "name": "佳曦",
+        "details": "卫华幼女│生于2014年12月9日",
+        "father":  "前房支37-27",
+        "children": []
+     },
+    "前房支38-8": {
+        "name": "南飞",
+        "details": "建明之子│2010年5月15日出生于郑州",
+        "father":  "前房支37-29",
+        "children": []
+     },
+    "前房支38-9": {
+        "name": "梦飞",
+        "details": "建明之女│生于2005年12月23日",
+        "father":  "前房支37-29",
+        "children": []
+     },
+    "前房支38-10": {
+        "name": "宇飞",
+        "details": "建义之子│生于2009年2月11日",
+        "father":  "前房支37-30",
+        "children": []
+     },
+    "前房支38-11": {
+        "name": "宇涵",
+        "details": "建义之女│生于2016年9月7日",
+        "father":  "前房支37-30",
+        "children": []
+     },
+    "前房支38-12": {
+        "name": "飞",
+        "details": "锦云长子│生于1991年2月13日广东医学院毕业配湖北江陵代雯生于1990年9月12日长江大学毕业均供职于深圳生女二毓颖清栩",
+        "father":  "前房支37-32",
+        "children": ["前房支39-1", "前房支39-2"]
+     },
+    "前房支38-13": {
+        "name": "梓辰",
+        "details": "锦云幼子│生于2012年4月14日",
+        "father":  "前房支37-32",
+        "children": []
+     },
+    "前房支38-14": {
+        "name": "粤",
+        "details": "锦云长女│生于1999年1月26日",
+        "father":  "前房支37-32",
+        "children": []
+     },
+    "前房支38-15": {
+        "name": "梦溪",
+        "details": "锦云幼女│生于2009年4月10日",
+        "father":  "前房支37-32",
+        "children": []
+     },
+    "前房支38-16": {
+        "name": "亚飞",
+        "details": "凌波之子│生于2021年6月5日",
+        "father":  "前房支37-35",
+        "children": []
+     },
+    "前房支38-17": {
+        "name": "书翊",
+        "details": "扬波之子│生于2024年3月5日",
+        "father":  "前房支37-37",
+        "children": []
+     },
+    "前房支38-18": {
+        "name": "梓阳",
+        "details": "锟翔之子│生于2010年12月27日",
+        "father":  "前房支37-50",
+        "children": []
+     },
+    "前房支38-19": {
+        "name": "晔",
+        "details": "锟翔长女│生于2004年1月2日",
+        "father":  "前房支37-50",
+        "children": []
+     },
+    "前房支38-20": {
+        "name": "星悦",
+        "details": "锟翔幼女│生于2008年9月17日",
+        "father":  "前房支37-50",
+        "children": []
+     },
+    "前房支38-21": {
+        "name": "煜",
+        "details": "鹏翔长子│生于2006年9月3日",
+        "father":  "前房支37-51",
+        "children": []
+     },
+    "前房支38-22": {
+        "name": "东昕",
+        "details": "鹏翔次子│生于2009年8月15日双胞胎哥哥",
+        "father":  "前房支37-51",
+        "children": []
+     },
+    "前房支38-23": {
+        "name": "东旭",
+        "details": "鹏翔幼子│生于2009年8月15日双胞胎弟弟",
+        "father":  "前房支37-51",
+        "children": []
+     },
+    "前房支38-24": {
+        "name": "盛怡",
+        "details": "琦之女│生于2025年8月18日",
+        "father":  "前房支37-52",
+        "children": []
+     },
+    "前房支38-25": {
+        "name": "乐佑",
+        "details": "飞翔之子│生于2022年10月16日",
+        "father":  "前房支37-60",
+        "children": []
+     },
+    "前房支39-1": {
+        "name": "毓颖",
+        "details": "飞长女│生于2017年7月28日",
+        "father":  "前房支38-12",
+        "children": []
+     },
+    "前房支39-2": {
+        "name": "清栩",
+        "details": "飞幼女│生于2024年5月14日",
+        "father":  "前房支38-12",
+        "children": []
+     }
+        };
+
+        // 全局状态
+        let searchHistory = JSON.parse(localStorage.getItem('genealogySearchHistory') || '[]');
+        let currentPerson = null;
+        let currentSpouse = null; 
+        let incenseRecords = JSON.parse(localStorage.getItem('incenseRecords') || '{}');
+        
+        // 音效系统
+        const audioSystem = {
+            // 音频元素
+            bgMusic: document.getElementById('bgMusic'),
+            incenseSound: document.getElementById('incenseSound'),
+            bellSound: document.getElementById('bellSound'),
+            prayerSound: document.getElementById('prayerSound'),
+            
+            // 初始化音效系统
+            init: function() {
+                // 绑定音量控制事件
+                document.getElementById('bgMusicVolume').addEventListener('input', (e) => {
+                    this.setVolume('bgMusic', e.target.value / 100);
+                });
+                
+                document.getElementById('soundEffectsVolume').addEventListener('input', (e) => {
+                    this.setVolume('incenseSound', e.target.value / 100);
+                    this.setVolume('bellSound', e.target.value / 100);
+                    this.setVolume('prayerSound', e.target.value / 100);
+                });
+                
+                // 绑定音效开关事件
+                document.getElementById('bgMusicToggle').addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        this.bgMusic.play().catch(e => console.log("自动播放被阻止，需要用户交互"));
+                    } else {
+                        this.bgMusic.pause();
+                    }
+                });
+                
+                document.getElementById('soundEffectsToggle').addEventListener('change', (e) => {
+                    localStorage.setItem('soundEffectsEnabled', e.target.checked);
+                });
+                
+                // 恢复音效设置
+                const soundEffectsEnabled = localStorage.getItem('soundEffectsEnabled');
+                if (soundEffectsEnabled !== null) {
+                    document.getElementById('soundEffectsToggle').checked = soundEffectsEnabled === 'true';
+                }
+            },
+            
+            // 设置音量
+            setVolume: function(audioElement, volume) {
+                if (this[audioElement]) {
+                    this[audioElement].volume = volume;
+                }
+            },
+            
+            // 播放普通香音效
+            playIncenseSound: function(isLarge) {
+                if (!document.getElementById('soundEffectsToggle').checked) return;
+                
+                try {
+                    if (isLarge) {
+                        // 大香播放钟声
+                        this.bellSound.currentTime = 0;
+                        this.bellSound.play().catch(e => console.log("音效播放失败"));
+                    } else {
+                        // 普通香播放普通香音效
+                        this.incenseSound.currentTime = 0;
+                        this.incenseSound.play().catch(e => console.log("音效播放失败"));
+                    }
+                } catch (error) {
+                    console.log("音效播放错误:", error);
+                }
+            }
+        };
+
+        // 初始化页面
+        function initPage() {
+            renderSearchHistory();
+            bindIncenseEvents();
+            // 延迟初始化音效系统，避免影响主要功能
+            setTimeout(() => {
+                try {
+                    audioSystem.init();
+                } catch (error) {
+                    console.log("音效系统初始化失败，但不影响主要功能");
+                }
+            }, 1000);
+        }
+
+        // 获取完整世系路径（从十九世到当前人物）
+        function getFullLineage(personCode) {
+            const lineage = [];
+            let currentCode = personCode;
+            
+            // 向上追溯祖先
+            while (currentCode && genealogyData[currentCode]) {
+                lineage.unshift({...genealogyData[currentCode], code: currentCode});
+                currentCode = genealogyData[currentCode].father;
+            }
+            
+            return lineage;
+        }
+
+        // 渲染完整家族世系树
+        function renderFullFamilyTree(person) {
+            const lineage = getFullLineage(person.code);
+            const children = person.children || [];
+            
+            let html = `
+                <div class="tree-container">
+                    <div class="tree-title">完整家族世系（从十九世开始，共${lineage.length}代）</div>
+            `;
+            
+            // 渲染祖先世系
+            lineage.forEach((ancestor, index) => {
+                html += `
+                    <div class="generation">
+                        <div class="person-node ${ancestor.code === person.code ? 'current' : ''}">
+                            <div class="name">${ancestor.name}</div>
+                            <div class="code">${ancestor.code}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // 添加连接线（除了最后一代）
+                if (index < lineage.length - 1) {
+                    html += `<div class="vertical-connector"></div>`;
+                }
+            });
+            
+            // 渲染子女世系（如果存在）
+            if (children.length > 0) {
+                html += `<div class="vertical-connector"></div>`;
+                html += `
+                    <div class="generation">
+                        <div class="children-group">
+                            ${children.map(childCode => {
+                                const child = genealogyData[childCode];
+                                return child ? `
+                                    <div class="person-node">
+                                        <div class="name">${child.name}</div>
+                                        <div class="code">${childCode}</div>
+                                    </div>
+                                ` : '';
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `</div>`;
+            return html;
+        }
+
+        // 检测是否有殁殁殁殁葬信息
+        function hasDeathBurialInfo(text) {
+            return text.includes('殁殁殁殁于') || text.includes('葬于') || text.includes('殁殁殁殁') || text.includes('葬');
+        }
+
+        // 提取配偶信息
+        function extractSpouseInfo(details) {
+            return details.includes('配') ? '配' : null;
+        }
+
+        // 提取配偶姓氏
+        function extractSpouseSurname(details) {
+            const surnameMatch = details.match(/配([^生]+?)氏/);
+            return surnameMatch ? surnameMatch[1] : '未知';
+        }
+
+        // 格式化信息展示文本
+        function formatDisplayText(text) {
+            if (!text) return '';
+            
+            // 1. 首先移除所有│符号并替换为换行符
+            text = text.replace(/│/g, '\n');
+            
+            // 2. 在指定关键字前添加换行符
+            const lineBreakKeywords = ['生于', '殁殁殁殁于', '葬于', '幼年夭折'];
+            lineBreakKeywords.forEach(keyword => {
+                text = text.replace(new RegExp(`([^\\n])(${keyword})`, 'g'), '$1\n$2');
+            });
+            
+            // 3. 为生子/生女添加虚线分隔
+            const childrenKeywords = ['生子', '生女'];
+            childrenKeywords.forEach(keyword => {
+                text = text.replace(new RegExp(`([^\\n])(${keyword})`, 'g'), '$1\n<span class="children-section">$2');
+            });
+            
+            // 4. 处理多个生子生女的闭合标签
+            const count = (text.match(/class="children-section"/g) || []).length;
+            for(let i=0; i<count; i++) {
+                const lastNewLine = text.lastIndexOf('\n');
+                if(lastNewLine > 0) {
+                    text = text.substring(0, lastNewLine) + '</span>' + text.substring(lastNewLine);
+                } else {
+                    text += '</span>';
+                }
+            }
+            
+            // 5. 去除首尾多余空行
+            text = text.trim();
+            
+            return text;
+        }
+
+        // 搜索人物
+        function searchPerson() {
+            const input = document.getElementById('codeInput').value.trim();
+            if (!input) {
+                alert('请输入家谱编码或姓名');
+                return;
+            }
+
+            let matchedPerson = null;
+            for (const [code, info] of Object.entries(genealogyData)) {
+                if (code.includes(input) || info.name.includes(input)) {
+                    matchedPerson = { code, ...info };
+                    break;
+                }
+            }
+
+            if (matchedPerson) {
+                currentPerson = matchedPerson;
+                currentSpouse = extractSpouseInfo(matchedPerson.details);
+                renderPersonResult(matchedPerson);
+                addToSearchHistory(matchedPerson.code, matchedPerson.name);
+                initMemorialSection();
+            } else {
+                document.getElementById('result').innerHTML = `
+                    <div class="empty-state">
+                        <h3>未找到匹配的家族成员</h3>
+                        <p>请检查输入的编码/姓名是否正确，或尝试模糊查询</p>
+                    </div>
+                `;
+                document.getElementById('memorialSection').classList.remove('show');
+            }
+        }
+
+        // 渲染人物结果
+        function renderPersonResult(person) {
+            const resultEl = document.getElementById('result');
+            // 格式化人物详情文本
+            let formattedDetails = formatDisplayText(person.details);
+            const spouseInfo = extractSpouseInfo(person.details);
+            
+            if (spouseInfo) {
+                const spouseIndex = formattedDetails.indexOf('配');
+                const personDetails = formattedDetails.substring(0, spouseIndex).trim();
+                // 只保留虚线分隔和配偶内容
+                formattedDetails = `
+                    <div class="person-main-info">${personDetails}</div>
+                    <div class="spouse-info">
+                        ${formattedDetails.substring(spouseIndex).trim()}
+                    </div>
+                `;
+            }
+
+            resultEl.innerHTML = `
+                <div class="person-card">
+                    <div class="person-header">
+                        <div class="person-name">${person.name}</div>
+                        <div class="person-code">${person.code}</div>
+                    </div>
+                    <div class="person-details">${formattedDetails}</div>
+                </div>
+                ${renderFullFamilyTree(person)}
+            `;
+        }
+
+        // 初始化祭祀区域
+        function initMemorialSection() {
+            const memorialSection = document.getElementById('memorialSection');
+            const mainTributeTarget = document.getElementById('mainTributeTarget');
+            const personMemorialTitle = document.getElementById('personMemorialTitle');
+            const personMemorialContent = document.getElementById('personMemorialContent');
+            const spouseMemorialArea = document.getElementById('spouseMemorialArea');
+            const spouseMemorialTitle = document.getElementById('spouseMemorialTitle');
+            const spouseMemorialContent = document.getElementById('spouseMemorialContent');
+            
+            // 1. 去掉"当前祭祀"后的冒号，只保留文字
+            mainTributeTarget.textContent = '当前祭祀';
+            
+            // 2. 将祭祀对象信息放到第一个卡片的标题位置，格式和配偶卡片保持一致
+            personMemorialTitle.textContent = `${currentPerson.name} (${currentPerson.code})`;
+            personMemorialContent.textContent = ''; // 清空内容区域
+            
+            // 激活本人普通香按钮
+            const personHasDeathInfo = hasDeathBurialInfo(currentPerson.details);
+            document.getElementById('personIncenseBtn').disabled = !personHasDeathInfo;
+            document.getElementById('personLargeIncenseBtn').disabled = !personHasDeathInfo;
+            loadIncenseCount('person', currentPerson.code);
+            
+            // 处理配偶祭祀区域：用配偶姓氏代替"配"字
+            if (currentSpouse) {
+                spouseMemorialArea.style.display = 'block';
+                const spouseSurname = extractSpouseSurname(currentPerson.details);
+                spouseMemorialTitle.textContent = `${spouseSurname}氏`; // 配偶卡片标题保持原有格式
+                spouseMemorialContent.textContent = ''; // 清空内容区域
+                
+                const spouseHasDeathInfo = hasDeathBurialInfo(currentPerson.details);
+                document.getElementById('spouseIncenseBtn').disabled = !spouseHasDeathInfo;
+                document.getElementById('spouseLargeIncenseBtn').disabled = !spouseHasDeathInfo;
+                loadIncenseCount('spouse', `${currentPerson.code}_spouse`);
+            } else {
+                spouseMemorialArea.style.display = 'none';
+            }
+            
+            // 显示祭祀区域
+            if (personHasDeathInfo || (currentSpouse && hasDeathBurialInfo(currentPerson.details))) {
+                memorialSection.classList.add('show');
+            } else {
+                memorialSection.classList.remove('show');
+            }
+            
+            loadIncenseHistory();
+        }
+
+        // 绑定普通香按钮事件
+        function bindIncenseEvents() {
+            // 本人普通香
+            document.getElementById('personIncenseBtn').addEventListener('click', () => {
+                lightIncense('person', currentPerson.code, false);
+            });
+            // 本人大香
+            document.getElementById('personLargeIncenseBtn').addEventListener('click', () => {
+                lightIncense('person', currentPerson.code, true);
+            });
+            // 配偶普通香
+            document.getElementById('spouseIncenseBtn').addEventListener('click', () => {
+                lightIncense('spouse', `${currentPerson.code}_spouse`, false);
+            });
+            // 配偶大香
+            document.getElementById('spouseLargeIncenseBtn').addEventListener('click', () => {
+                lightIncense('spouse', `${currentPerson.code}_spouse`, true);
+            });
+        }
+
+        // 普通香核心逻辑（带音效）
+        function lightIncense(type, key, isLarge) {
+            const animationEl = document.getElementById('incenseAnimation');
+            const messageEl = document.getElementById('tributeMessage');
+            const personType = type === 'person' ? currentPerson.name : `${extractSpouseSurname(currentPerson.details)}氏`;
+            const incenseType = isLarge ? '大香' : '普通香';
+            
+            console.log('开始普通香:', { type, key, isLarge, personType }); // 调试信息
+            
+            // 播放音效
+            try {
+                audioSystem.playIncenseSound(isLarge);
+            } catch (error) {
+                console.log('音效播放失败:', error);
+            }
+            
+            // 重置动画
+            animationEl.classList.remove('large');
+            messageEl.classList.remove('large');
+            animationEl.style.display = 'none';
+            
+            // 显示动画
+            setTimeout(() => {
+                if (isLarge) {
+                    animationEl.classList.add('large');
+                    messageEl.classList.add('large');
+                }
+                animationEl.style.display = 'block';
+                
+                // 随机祭祀语
+                const blessings = isLarge ? 
+                    [`🙏🙏🙏🙏🙏🙏🙏🙏🙏 为${personType}上${incenseType}，愿家族昌盛，子孙安康！`, 
+                     `🙏🙏🙏🙏🙏🙏🙏🙏🙏 焚${incenseType}敬先祖，福泽延绵万代兴！`,
+                     `🙏🙏🙏🙏🙏🙏🙏🙏🙏 敬${incenseType}以寄哀思，愿先灵安息，佑我后人！`] :
+                    [`🙏🙏🙏🙏🙏🙏🙏🙏🙏 为${personType}上普通香祭祀，愿平安顺遂！`, 
+                     `🙏🙏🙏🙏🙏🙏🙏🙏🙏 一柱清香敬先祖，血脉相连情意长！`,
+                     `🙏🙏🙏🙏🙏🙏🙏🙏🙏 焚香祭祖，祈愿家族兴旺，福寿绵长！`];
+                const randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
+                messageEl.textContent = randomBlessing;
+                
+                // 更新计数
+                updateIncenseCount(key, isLarge);
+                
+                // 保存记录
+                saveIncenseRecord(key, personType, incenseType);
+                
+                console.log('普通香完成，开始5秒倒计时'); // 调试信息
+                
+                // 5秒后隐藏动画
+                setTimeout(() => {
+                    animationEl.style.display = 'none';
+                    console.log('动画隐藏完成'); // 调试信息
+                }, 5000);
+            }, 100);
+        }
+
+        // 加载普通香计数
+        function loadIncenseCount(type, key) {
+            const normalCountEl = document.getElementById(`${type}IncenseCount`);
+            const largeCountEl = document.getElementById(`${type}LargeIncenseCount`);
+            
+            const counts = incenseRecords[key] || { normal: 0, large: 0 };
+            normalCountEl.textContent = counts.normal;
+            largeCountEl.textContent = counts.large;
+        }
+
+        // 更新普通香计数
+        function updateIncenseCount(key, isLarge) {
+            if (!incenseRecords[key]) {
+                incenseRecords[key] = { normal: 0, large: 0 };
+            }
+            
+            if (isLarge) {
+                incenseRecords[key].large++;
+                document.getElementById(key.includes('_spouse') ? 'spouseLargeIncenseCount' : 'personLargeIncenseCount').textContent = incenseRecords[key].large;
+            } else {
+                incenseRecords[key].normal++;
+                document.getElementById(key.includes('_spouse') ? 'spouseIncenseCount' : 'personIncenseCount').textContent = incenseRecords[key].normal;
+            }
+            
+            localStorage.setItem('incenseRecords', JSON.stringify(incenseRecords));
+            loadIncenseHistory();
+        }
+
+        // 保存普通香记录
+        function saveIncenseRecord(key, personName, incenseType) {
+            const now = new Date();
+            const timeStr = now.toLocaleString('zh-CN');
+            const record = {
+                time: timeStr,
+                person: personName,
+                type: incenseType,
+                key: key
+            };
+            
+            let historyRecords = JSON.parse(localStorage.getItem('incenseHistory') || '[]');
+            historyRecords.unshift(record);
+            if (historyRecords.length > 10) {
+                historyRecords = historyRecords.slice(0, 10);
+            }
+            
+            localStorage.setItem('incenseHistory', JSON.stringify(historyRecords));
+        }
+
+        // 加载普通香历史
+        function loadIncenseHistory() {
+            const historyEl = document.getElementById('tributeHistory');
+            const historyRecords = JSON.parse(localStorage.getItem('incenseHistory') || '[]');
+            
+            if (historyRecords.length === 0) {
+                historyEl.textContent = '暂无普通香记录';
+                return;
+            }
+            
+            historyEl.innerHTML = `
+                <div style="font-weight:600; margin-bottom:8px;">普通香记录（最近10条）：</div>
+                <div style="max-height:150px; overflow-y:auto; text-align:left; padding-left:10px;">
+                    ${historyRecords.map((item, index) => `
+                        <div style="margin:4px 0; font-size:0.9rem;">
+                            ${index+1}. ${item.time} - 为${item.person}上${item.type}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // 添加到搜索历史
+        function addToSearchHistory(code, name) {
+            searchHistory = searchHistory.filter(item => item.code !== code);
+            searchHistory.unshift({ code, name });
+            if (searchHistory.length > 10) {
+                searchHistory = searchHistory.slice(0, 10);
+            }
+            localStorage.setItem('genealogySearchHistory', JSON.stringify(searchHistory));
+            renderSearchHistory();
+        }
+
+        // 渲染搜索历史
+        function renderSearchHistory() {
+            const historyListEl = document.getElementById('historyList');
+            if (searchHistory.length === 0) {
+                historyListEl.innerHTML = '<div>暂无查询历史</div>';
+                return;
+            }
+            
+            historyListEl.innerHTML = searchHistory.map(item => `
+                <div class="history-item" onclick="searchByHistory('${item.code}')">
+                    ${item.name} (${item.code})
+                </div>
+            `).join('');
+        }
+
+        // 点击历史记录搜索
+        function searchByHistory(code) {
+            document.getElementById('codeInput').value = code;
+            searchPerson();
+        }
+
+        // 调整字体大小
+        function adjustFontSize(delta) {
+            const root = document.documentElement;
+            const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
+            const newSize = Math.max(12, Math.min(24, currentSize + delta));
+            root.style.setProperty('--base-font-size', `${newSize}px`);
+        }
+
+        // 设置音频预设（全局函数）
+        function setAudioPreset(presetName) {
+            // 简化版本，不依赖外部音频资源
+            console.log('切换到音频预设:', presetName);
+            alert(`已切换到${presetName}模式`);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage();
+            
+            // 添加音频元素（简化版本）
+            const audioContainer = document.createElement('div');
+            audioContainer.innerHTML = `
+                <audio id="bgMusic" src=""></audio>
+                <audio id="incenseSound" src=""></audio>
+                <audio id="bellSound" src=""></audio>
+                <audio id="prayerSound" src=""></audio>
+            `;
+            document.body.appendChild(audioContainer);
+            
+            console.log('家谱祭祀平台初始化完成');
+        });
+
+        // 简化音效播放函数
+        function playSimpleSound(type) {
+            if (!document.getElementById('soundEffectsToggle')?.checked) return;
+            
+            try {
+                // 创建简单的音效
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                if (type === 'incense') {
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                } else if (type === 'bell') {
+                    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                }
+                
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 1);
+                
+            } catch (error) {
+                console.log('音效播放失败:', error);
+            }
+        }
+
+        // 重写音效播放函数
+        audioSystem.playIncenseSound = function(isLarge) {
+            if (!document.getElementById('soundEffectsToggle')?.checked) return;
+            
+            if (isLarge) {
+                playSimpleSound('bell');
+            } else {
+                playSimpleSound('incense');
+            }
+        };
+    </script>
+</body>
+</html>
